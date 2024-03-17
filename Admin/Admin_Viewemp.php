@@ -59,13 +59,33 @@
 <section>
         
     
-        <div class= main>
+      <div class= main>
         <div class="container">    
           
-        <!-- your forms -->
+          <!-- your forms -->
 
+          <h1 class="head">View Employee details</h1><br><br>
+
+          <div class="row">
+            <legend class="col-form-label col-sm-2 pt-0">Choose Working Place</legend>
+              <div class="col-auto">
+                <select class="form-select" id="workSelect" aria-label="work Selection">
+                  <option value="">Choose the Working Place</option>
+                  <option value="Work1">Telecom - Mathale</option>
+                  <option value="work2">Telecom OPMC - Anuradhapura</option>
+                  <option value="work3">Toyota - Anuradhapura</option>
+                  <option value="work4">Telecom - Kurunegala</option>
+                  <option value="work5">CEB - Mannar</option>
+                  <option value="work6">Water Board - Thisa wewa</option>
+                  <option value="work7">Telecom - Trincomalee</option>
+                </select>
+              </div>
+              <div class="col-auto">
+                <button type="button" class="btn btn-primary" id="searchButton" style="color:black;">Search Details</button>
+              </div>
+          </div>
         </div>
-        </div>
+      </div>
     </section>
 
 

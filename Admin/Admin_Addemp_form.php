@@ -35,6 +35,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $gender = test_input($_POST["gender"]);
     }
 
+/*
     // Validate address
     if (empty($_POST["address"])) {
         $addressErr = "Address is required";
@@ -52,6 +53,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             $telephoneNumberErr = "Invalid telephone number";
         }
     }
+    */
 
     // Validate NIC number
     if (empty($_POST["nicNumber"])) {
@@ -64,6 +66,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         }
     }
 
+    /*
     // Validate account number
     if (empty($_POST["accountNumber"])) {
         $accountNumberErr = "Account number is required";
@@ -77,6 +80,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     } else {
         $bank = test_input($_POST["bank"]);
     }
+    */
 
     // Validate working place
     if (empty($_POST["workingPlace"])) {
@@ -268,7 +272,16 @@ function test_input($data)
                         </select>
                     </div>
                 </div><br><br>
-                     
+                   
+                <!--
+                    <div class="row">
+                    <legend class="col-form-label col-sm-2 pt-0">Birth Year</legend>
+                    <div class="col-auto">
+                        <input type="number" class="form-control" id="inputBirthYear" min="1000" max="9999" placeholder="YYYY">
+                    </div>
+                    </div><br><br>
+
+                -->
                 <div class="row">
                     <legend class="col-form-label col-sm-2 pt-0">Date Of Birth</legend>
                     <div class="col-auto">
