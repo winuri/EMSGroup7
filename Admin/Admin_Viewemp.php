@@ -12,7 +12,7 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/css/bootstrap.min.css" integrity="sha384-zDj2lLWQ9zUSw456eOUgi6IzxBQieHIKTmrwGkLt9q9sI+34KbTVBsVCs0VAONIO" crossorigin="anonymous">
     <link rel="stylesheet" href="style.css">
-    <title>Admin Dashboard</title>
+    <title>View Employee</title>
     <style>
        
     </style>    
@@ -24,7 +24,7 @@
   <button class="dropdown-btn">Employee Section</button>
   <div class="dropdown-container">
     <a href="Admin_Addemp_form" target="_blank">Add Employee</a>
-    <a href="Admin_Viewemp" target="_blank">View Employee</a>
+    <a href="Admin_Viewemp">View Employee</a>
     <a href="Admin_Update_form" target="_blank">Update Employee</a>
   </div>
 
