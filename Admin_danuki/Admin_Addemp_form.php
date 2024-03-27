@@ -19,16 +19,16 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $workSelect = $_POST['workSelect'];
 
     // Insert data into the employee table
-    $stmt = $conn->prepare("INSERT INTO Employee (Member_No, F_name, L_name, NIC , Mobile, Gender,Address, DOB,Position_ID, work_ID, Pay_ID) 
-                            VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
-    $stmt->bind_param("ssssssssiii", $memNo, $fname, $lname, $NIC , $telephone, $gender,$address, $dob, $position, $workSelect, $paymethod);
+    $stmt = $conn->prepare("INSERT INTO Employee (Member_No, F_name, L_name, NIC , Mobile, Gender,Address, DOB,Position_ID, work_ID, Pay_ID,Bank_ID) 
+                            VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
+    $stmt->bind_param("ssssssssiiii", $memNo, $fname, $lname, $NIC , $telephone, $gender,$address, $dob, $position, $workSelect, $paymethod, $bankSelect);
 
     if ($stmt->execute()) {
         $employee_id = $conn->insert_id; // Get the ID of the newly inserted employee
 
         // Insert data into the accountdetails table
-        $stmt2 = $conn->prepare("INSERT INTO AccountDetails (Acc_No, Bank_ID) VALUES (?, ?)");
-        $stmt2->bind_param("si",  $accountNumber, $bankSelect);
+        $stmt2 = $conn->prepare("INSERT INTO AccountDetails (Acc_No, Bank_ID,EMP_ID) VALUES (?, ?, ?)");
+        $stmt2->bind_param("sii",  $accountNumber, $bankSelect, $employee_id);
         $stmt2->execute();
 
         $success = '<div class="alert alert-success" role="alert">New record created successfully</div>';
