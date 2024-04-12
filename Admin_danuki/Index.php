@@ -93,10 +93,10 @@
                     </a>
                     <ul id="auth" class="sidebar-dropdown list-unstyled collapse" data-bs-parent="#sidebar">
                         <li class="sidebar-item">
-                            <a href="#" class="sidebar-link">Add Workplaces</a>
+                            <a href="WorkAdd.php" class="sidebar-link">Add Workplaces</a>
                         </li>
                         <li class="sidebar-item">
-                            <a href="#" class="sidebar-link">View Workplaces</a>
+                            <a href="Workview.php" class="sidebar-link">View Workplaces</a>
                         </li>
                     </ul>
                 </li>

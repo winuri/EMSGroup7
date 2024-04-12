@@ -1,67 +1,27 @@
 <?php
 include('ConnectionModel.php');
-$success = '';
+$success='';
 
-// Check if connection was successful
-if ($conn->connect_error) {
-    die("Connection failed: " . $conn->connect_error);
-}
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    // Fetch data from the form
+    $workName = $_POST['workName'];
+    $workAddress = $_POST['workAddress'];
+    $OwnerName = $_POST['OwnerName'];
+    $OwnerTPno = $_POST['OwnerTPno'];
 
-// Fetching data based on selected workplace
-if(isset($_POST['workSelect'])){
-    $workSelect = $_POST['workSelect'];
+    // Insert data into the Workplace table
+    $stmt = $conn->prepare("INSERT INTO workplace(Address,name,Owner_name,Owner_mobile)
+                            VALUES(?, ?, ?, ?)");
+    $stmt->bind_param("ssss",$workAddress,$workName,$OwnerName,$OwnerTPno);
 
-    // Perform SQL query to fetch employee details based on selectedWork
-    $sql = "SELECT e.Member_No, e.F_name, e.L_name, e.DOB, e.Gender, e.Address, e.Mobile, e.NIC,
-            ad.Acc_No, bd.Bank_Name, p.Position_name, pay.Pay_name
-            FROM employee AS e
-            JOIN accountdetails AS ad ON e.EMP_ID = ad.EMP_ID
-            JOIN bankdetails AS bd ON ad.bank_id = bd.bank_id
-            JOIN positions AS p ON e.Position_ID = p.Position_ID
-            JOIN paymethod AS pay ON e.Pay_ID = pay.Pay_ID
-            JOIN workplace AS w ON e.work_ID = w.work_ID
-            WHERE w.name = ?";
-    
-    // Prepare and execute the SQL query
-    $stmt = $conn->prepare($sql);
-    if ($stmt === false) {
-        die("Error preparing statement: " . $conn->error);
-    }
-    
-    $bindResult = $stmt->bind_param("s", $workSelect);
-    if ($bindResult === false) {
-        die("Error binding parameters: " . $stmt->error);
-    }
-    
-    if (!$stmt->execute()) {
-        die("Error executing statement: " . $stmt->error);
-    }
-
-    $result = $stmt->get_result();
-
-    // Build the HTML for the table of employee data
-    $output = '';
-    if($result->num_rows > 0){
-        $output .= "<table>";
-        $output .= "<tr><th>Member no</th><th>First Name</th><th>Last Name</th><th>DOB</th><th>Position</th><th>Gender</th><th>Address</th>
-        <th>Telephone Number</th><th>NIC Number</th><th>Account Number</th><th>Bank</th><th>Payment Method</th></tr>";
-        while($row = $result->fetch_assoc()){
-            $output .= "<tr><td>".$row['Member_No']."</td><td>".$row['F_name']."</td><td>".$row['L_name']."</td><td>".$row['DOB']."</td><td>"
-            .$row['Position_name']."</td><td>".$row['Gender']."</td><td>".$row['Address']."</td><td>".$row['Mobile']."</td><td>".$row['NIC']."</td><td>"
-            .$row['Acc_No']."</td><td>".$row['Bank_Name']."</td><td>".$row['Pay_name']."</td></tr>";
-        }
-        $output .= "</table>";
+    if($stmt->execute()){
+        $success= '<div class="alert alert-success" role="alert">New record created successfully</div>';
     } else {
-        $output .= "No results found";
+        $success = '<div class="alert alert-danger" role="alert">Error: ' . $stmt->error . '</div>';
     }
 
-    // Close statement and database connection
+    // Close statement
     $stmt->close();
-    $conn->close();
-
-    // Output the table of employee data
-    echo $output;
-    exit; // Terminate the script after outputting the table
 }
 ?>
 
@@ -110,7 +70,7 @@ if(isset($_POST['workSelect'])){
                                 <a href="Add.php" class="sidebar-link">Add Employees</a>
                             </li>
                             <li class="sidebar-item">
-                                <a href="#" class="sidebar-link">View Employees</a>
+                                <a href="view.php" class="sidebar-link">View Employees</a>
                             </li>
                         </ul>
                     </li>
@@ -161,7 +121,7 @@ if(isset($_POST['workSelect'])){
                         </a>
                         <ul id="auth" class="sidebar-dropdown list-unstyled collapse" data-bs-parent="#sidebar">
                             <li class="sidebar-item">
-                                <a href="WorkAdd.php" class="sidebar-link">Add Workplaces</a>
+                                <a href="#" class="sidebar-link">Add Workplaces</a>
                             </li>
                             <li class="sidebar-item">
                                 <a href="Workview.php" class="sidebar-link">View Workplaces</a>
@@ -202,48 +162,42 @@ if(isset($_POST['workSelect'])){
                     <div class= main>
                         <div class="container">    
                             <h1 class="head">View Employee details</h1><br><br>
-                            <!--Dropdown to select workplace-->
-                            <div class="row">
-                                <legend class="col-form-label col-sm-2 pt-0">Choose Working Place</legend>
-                                <div class="col-auto">
-                                    <select class="form-select" id="workSelect" name="workSelect" aria-label="work Selection">
-                                    <?php
-                            $WorkPlace = mysqli_query($conn,"Select * from WorkPlace");
-                            while($cc = mysqli_fetch_array($WorkPlace)){
-                            ?>
-                            <option value="<?php echo $cc['work_ID'] ?>"><?php echo $cc['name']?></option>    
-                           <?php }?>
-                                    </select>
-                                </div>
-                                <div class="col-auto">
-                                    <button type="button" class="btn btn-primary" id="searchButton" style="color:black;">Search Details</button>
-                                </div>
-                            </div>
+
+                            <form action="" method="post">
+                                <div class="row">
+                                    <legend class="col-form-label col-sm-2 pt-0"> Workplace Name: </legend>
+                                    <div class="col">
+                                        <input type="text" class="form-control" name="workName" id="workName" placeholder="Telecom-Mannar">
+                                    </div>
+                                </div><br><br>
+                                
+                                <div class="row">
+                                    <legend class="col-form-label col-sm-2 pt-0"> Workplace Address: </legend>
+                                    <div class="col">
+                                        <input type="text" class="form-control" name="workAddress" id="workAddress" placeholder="1234 Main St">
+                                    </div>
+                                </div><br><br>
+
+                                <div class="row">
+                                    <legend class="col-form-label col-sm-2 pt-0"> Owner/Supervisor Name: </legend>
+                                    <div class="col">
+                                        <input type="text" class="form-control" name="OwnerName" id="OwnerName" placeholder="">
+                                    </div>
+                                </div><br><br>
+
+                                <div class="row">
+                                    <legend class="col-form-label col-sm-2 pt-0">Owner/Supervisor Telephone number:</legend>
+                                    <div class="col-auto">
+                                        <input type="text" class="form-control" name="OwnerTPno" id="OwnerTPno" placeholder="0123456789">
+                                    </div>
+                                </div><br><br>
+
+                                <input class="btn btn-primary" type="submit" value="Submit" style="color:black;">
+                                <input class="btn btn-primary" type="reset" value="Reset" style="color:black;">
+                            </form>
                         </div>
                     </div>
-                </section>
-
-
-                <!-- Container to display search results -->
-                <div id="searchResults"></div>
-
-                <script>
-                    // JavaScript code to handle the button click event
-                    $(document).ready(function(){
-                        $("#searchButton").click(function(){
-                            var workSelect = $("#workSelect").val();
-                            // AJAX call to fetch data from the server
-                            $.ajax({
-                                url: "", 
-                                method: "POST",
-                                data: { workSelect: workSelect },
-                                success: function(response){
-                                    $("#searchResults").html(response);
-                                }
-                            });
-                        });
-                    });
-                </script>
+                </section>    
 
 
             </div> 

@@ -136,10 +136,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                         </a>
                         <ul id="auth" class="sidebar-dropdown list-unstyled collapse" data-bs-parent="#sidebar">
                             <li class="sidebar-item">
-                                <a href="#" class="sidebar-link">Add Workplaces</a>
+                                <a href="WorkAdd.php" class="sidebar-link">Add Workplaces</a>
                             </li>
                             <li class="sidebar-item">
-                                <a href="#" class="sidebar-link">View Workplaces</a>
+                                <a href="Workview.php" class="sidebar-link">View Workplaces</a>
                             </li>
                         </ul>
                     </li>
@@ -172,144 +172,148 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                         print $success;
                     }
                 ?>
-                <form action="" method="post">
 
-                <div class="row">
-                    <legend class="col-form-label col-sm-2 pt-0">Member number:</legend>
-                    <div class="col-auto">
-                    <input type="text" class="form-control" name="memNo" id="memNo" placeholder="111">
-                    </div>
-                </div><br><br>
+                <section>
+                     <h1 class="head">Add New Employee Details</h1><br><br>
+                    <form action="" method="post">
 
-                <div class="row">
-                    <legend class="col-form-label col-sm-2 pt-0">Position:</legend>
-                    <div class="col-auto">
-                        <select class="form-select" id="position" name="position" aria-label="position selection" >
-                            <?php
-                            $Positions = mysqli_query($conn,"Select * from Positions");
-                            while($cc = mysqli_fetch_array($Positions)){
-                            ?>
-                            <option value="<?php echo $cc['Position_ID'] ?>"><?php echo $cc['Position_name']?></option>    
-                           <?php }?>
+                        <div class="row">
+                            <legend class="col-form-label col-sm-2 pt-0">Member number:</legend>
+                            <div class="col-auto">
+                            <input type="text" class="form-control" name="memNo" id="memNo" placeholder="111">
+                            </div>
+                        </div><br><br>
 
-                            ?>
+                        <div class="row">
+                            <legend class="col-form-label col-sm-2 pt-0">Position:</legend>
+                            <div class="col-auto">
+                                <select class="form-select" id="position" name="position" aria-label="position selection" >
+                                    <?php
+                                    $Positions = mysqli_query($conn,"Select * from Positions");
+                                    while($cc = mysqli_fetch_array($Positions)){
+                                    ?>
+                                    <option value="<?php echo $cc['Position_ID'] ?>"><?php echo $cc['Position_name']?></option>    
+                                <?php }?>
 
-                        </select>
-                    </div>
-                </div><br><br>
-  
-                <div class="row">
-                    <legend class="col-form-label col-sm-2 pt-0">Employee Name:</legend>
-                    <div class="col">
-                        <input type="text" class="form-control" placeholder="First name" aria-label="First name" name="fname" >
-                    </div>
-                    <div class="col">
-                        <input type="text" class="form-control" placeholder="Last name" aria-label="Last name" name="lname" >
-                    </div>
-                </div><br><br>
+                                    ?>
 
-                <div class="row">
-                    <legend class="col-form-label col-sm-2 pt-0">Date Of Birth:</legend>
-                    <div class="col-auto">
-                    <input type="date" class="form-control" posiname="inputDOB" name="inputDOB" id="inputDOB" placeholder="DD/MM/YYYY">
-                    </div>
-                </div><br><br>
+                                </select>
+                            </div>
+                        </div><br><br>
+        
+                        <div class="row">
+                            <legend class="col-form-label col-sm-2 pt-0">Employee Name:</legend>
+                            <div class="col">
+                                <input type="text" class="form-control" placeholder="First name" aria-label="First name" name="fname" >
+                            </div>
+                            <div class="col">
+                                <input type="text" class="form-control" placeholder="Last name" aria-label="Last name" name="lname" >
+                            </div>
+                        </div><br><br>
 
-                <fieldset class="row mb-3">
-                    <legend class="col-form-label col-sm-2 pt-0">Gender:</legend>
-                    <div class="col-sm-10">
-                        <div class="form-check">
-                            <input class="form-check-input" type="radio" name="gridRadios" id="gridRadios1" value="Male" checked >
-                            <label class="form-check-label" for="gridRadios1">
-                                Male
-                            </label>
-                        </div>
-                        <div class="form-check">
-                            <input class="form-check-input" type="radio" name="gridRadios" id="gridRadios2" value="Female">
-                            <label class="form-check-label" for="gridRadios2">
-                            Female
-                            </label>
-                        </div>
-                    </div>
-                </fieldset><br>  
-                
+                        <div class="row">
+                            <legend class="col-form-label col-sm-2 pt-0">Date Of Birth:</legend>
+                            <div class="col-auto">
+                            <input type="date" class="form-control" posiname="inputDOB" name="inputDOB" id="inputDOB" placeholder="DD/MM/YYYY">
+                            </div>
+                        </div><br><br>
 
-
-                <div class="row">
-                    <legend class="col-form-label col-sm-2 pt-0">Address</legend>
-                    <div class="col">
-                    <input type="text" class="form-control" name="inputAddress" id="inputAddress" placeholder="1234 Main St">
-                    </div>
-                </div><br><br>
-
-                <div class="row">
-                    <legend class="col-form-label col-sm-2 pt-0">Telephone number:</legend>
-                    <div class="col-auto">
-                    <input type="text" class="form-control" name="inputTPno" id="inputTPno" placeholder="0123456789">
-                    </div>
-                </div><br><br>
+                        <fieldset class="row mb-3">
+                            <legend class="col-form-label col-sm-2 pt-0">Gender:</legend>
+                            <div class="col-sm-10">
+                                <div class="form-check">
+                                    <input class="form-check-input" type="radio" name="gridRadios" id="gridRadios1" value="Male" checked >
+                                    <label class="form-check-label" for="gridRadios1">
+                                        Male
+                                    </label>
+                                </div>
+                                <div class="form-check">
+                                    <input class="form-check-input" type="radio" name="gridRadios" id="gridRadios2" value="Female">
+                                    <label class="form-check-label" for="gridRadios2">
+                                    Female
+                                    </label>
+                                </div>
+                            </div>
+                        </fieldset><br>  
+                        
 
 
-                <div class="row">
-                    <legend class="col-form-label col-sm-2 pt-0">NIC number:</legend>
-                    <div class="col-auto">
-                    <input type="text" class="form-control" name="NIC" placeholder="12345678V / 74125896352" >
-                    </div>
-                </div><br><br>
+                        <div class="row">
+                            <legend class="col-form-label col-sm-2 pt-0">Address</legend>
+                            <div class="col">
+                            <input type="text" class="form-control" name="inputAddress" id="inputAddress" placeholder="1234 Main St">
+                            </div>
+                        </div><br><br>
 
-                <div class="row">
-                <legend class="col-form-label col-sm-2 pt-0">Account Number:</legend>
-                    <div class="col">
-                        <input type="text" class="form-control" name="accountNumber" placeholder="Account number" aria-label="Account Number">
-                    </div>
-                    <div class="col">
-                        <select class="form-select" id="bankSelect" name="bankSelect" aria-label="Bank Selection">
-                           
-                           <?php
-                           $BankDetails = mysqli_query($conn," Select * from BankDetails");
-                           while($c = mysqli_fetch_array($BankDetails)){
-                           ?>
-                           <option value="<?php echo $c['Bank_ID'] ?>"><?php echo $c['Bank_Name']?> </option>
-                           <?php } ?>
-                        </select>
-                    </div>
-                </div><br><br>
+                        <div class="row">
+                            <legend class="col-form-label col-sm-2 pt-0">Telephone number:</legend>
+                            <div class="col-auto">
+                            <input type="text" class="form-control" name="inputTPno" id="inputTPno" placeholder="0123456789">
+                            </div>
+                        </div><br><br>
 
-                <div class="row">
-                    <legend class="col-form-label col-sm-2 pt-0">Payment Method:</legend>
-                    <div class="col-auto">
-                        <select class="form-select" id="paymethod" name="paymethod" aria-label="payment selection" >
-                            <?php
-                            $PayMethod = mysqli_query($conn,"Select * from PayMethod");
-                            while($cc = mysqli_fetch_array($PayMethod)){
-                            ?>
-                            <option value="<?php echo $cc['Pay_ID'] ?>"><?php echo $cc['Pay_name']?></option>    
-                           <?php }?>
 
-                            ?>
+                        <div class="row">
+                            <legend class="col-form-label col-sm-2 pt-0">NIC number:</legend>
+                            <div class="col-auto">
+                            <input type="text" class="form-control" name="NIC" placeholder="12345678V / 74125896352" >
+                            </div>
+                        </div><br><br>
 
-                        </select>
-                    </div>
-                </div><br><br>
+                        <div class="row">
+                        <legend class="col-form-label col-sm-2 pt-0">Account Number:</legend>
+                            <div class="col">
+                                <input type="text" class="form-control" name="accountNumber" placeholder="Account number" aria-label="Account Number">
+                            </div>
+                            <div class="col">
+                                <select class="form-select" id="bankSelect" name="bankSelect" aria-label="Bank Selection">
 
-                <div class="row">
-                    <legend class="col-form-label col-sm-2 pt-0">Working Place:</legend>
-                    <div class="col-auto">
-                        <select class="form-select" id="workSelect" name="workSelect" aria-label="work Selection" >
-                            <?php
-                            $WorkPlace = mysqli_query($conn,"Select * from WorkPlace");
-                            while($cc = mysqli_fetch_array($WorkPlace)){
-                            ?>
-                            <option value="<?php echo $cc['work_ID'] ?>"><?php echo $cc['name']?></option>    
-                           <?php }?>
+                                <?php
+                                $BankDetails = mysqli_query($conn," Select * from BankDetails");
+                                while($c = mysqli_fetch_array($BankDetails)){
+                                ?>
+                                <option value="<?php echo $c['Bank_ID'] ?>"><?php echo $c['Bank_Name']?> </option>
+                                <?php } ?>
+                                </select>
+                            </div>
+                        </div><br><br>
 
-                        </select>
-                    </div>
-                </div><br><br>
-            
-                <input class="btn btn-primary" type="submit" value="Submit" style="color:black;">
-                <input class="btn btn-primary" type="reset" value="Reset" style="color:black;">
-            </form>
+                        <div class="row">
+                            <legend class="col-form-label col-sm-2 pt-0">Payment Method:</legend>
+                            <div class="col-auto">
+                                <select class="form-select" id="paymethod" name="paymethod" aria-label="payment selection" >
+                                    <?php
+                                    $PayMethod = mysqli_query($conn,"Select * from PayMethod");
+                                    while($cc = mysqli_fetch_array($PayMethod)){
+                                    ?>
+                                    <option value="<?php echo $cc['Pay_ID'] ?>"><?php echo $cc['Pay_name']?></option>    
+                                <?php }?>
+
+                                    ?>
+
+                                </select>
+                            </div>
+                        </div><br><br>
+
+                        <div class="row">
+                            <legend class="col-form-label col-sm-2 pt-0">Working Place:</legend>
+                            <div class="col-auto">
+                                <select class="form-select" id="workSelect" name="workSelect" aria-label="work Selection" >
+                                    <?php
+                                    $WorkPlace = mysqli_query($conn,"Select * from WorkPlace");
+                                    while($cc = mysqli_fetch_array($WorkPlace)){
+                                    ?>
+                                    <option value="<?php echo $cc['work_ID'] ?>"><?php echo $cc['name']?></option>    
+                                <?php }?>
+
+                                </select>
+                            </div>
+                        </div><br><br>
+                    
+                        <input class="btn btn-primary" type="submit" value="Submit" style="color:black;">
+                        <input class="btn btn-primary" type="reset" value="Reset" style="color:black;">
+                    </form>
+                </section>
             </div> 
         </div>
             
