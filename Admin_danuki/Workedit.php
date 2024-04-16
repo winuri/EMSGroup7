@@ -1,7 +1,71 @@
 <?php
 include('ConnectionModel.php');
-?>
+$success='';
 
+$work_ID = isset($_GET['id']) ? $_GET['id'] : null;
+
+if ($work_ID !== null) {
+    // Assuming $conn is your database connection
+    $query = "SELECT * FROM `workplace` WHERE `work_ID`= '$work_ID'";
+    $result = mysqli_query($conn, $query);
+
+    if (!$result) {
+        die("Query failed: " . mysqli_error($conn));
+    } else {
+        $row = mysqli_fetch_assoc($result);
+       
+    }
+} else {
+    echo "ID is not set.";
+}
+
+if(isset($_POST['update'])){
+
+    if(isset($_GET['Newwork_ID'])){
+        $Newwork_ID = $_GET['Newwork_ID'];
+    }
+
+    $name = $_POST['name'];
+    $Address = $_POST['Address'];
+    $Owner_name = $_POST['Owner_name'];
+    $Owner_mobile = $_POST['Owner_mobile'];
+
+    $query = "UPDATE `workplace` SET `name` = '$name', `Address` = '$Address', 
+    `Owner_name` = '$Owner_name', `Owner_mobile` = '$Owner_mobile' WHERE `work_ID`= '$Newwork_ID' ";
+
+
+    $result = mysqli_query($conn, $query);
+
+    if(!$result){
+        die("query failed".mysqli_error($conn));
+    }else{
+        header("Location:Workview.php");
+        exit(); 
+    }
+
+
+}
+
+/*
+$work_ID = isset($_GET['work_ID']) ? $_GET['work_ID'] : null;
+
+if ($work_ID !== null) {
+    // Assuming $conn is your database connection
+    $query = "SELECT * FROM `workplace` WHERE `work_ID`= '$work_ID'";
+    $result = mysqli_query($conn, $query);
+
+    if (!$result) {
+        die("Query failed: " . mysqli_error($conn));
+    } else {
+        $row = mysqli_fetch_row($result);
+        print_r($row);
+    }
+} else {
+    echo "Work ID is not set.";
+}
+*/
+
+?>
 
 <!DOCTYPE HTML>  
 <html lang="en">
@@ -20,13 +84,6 @@ include('ConnectionModel.php');
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-KK94CHFLLe+nY2dmCWGMq91rCGa5gtU4mk92HdvYe+M/SXH301p5ILy+dN9+nJOZ" crossorigin="anonymous">
     <link rel="stylesheet" href="styles.css">
-    <!-- Font Awesome CSS -->
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
-
-    <script src="https://cdn.jsdelivr.net/npm/jquery@3.7.1/dist/jquery.min.js"></script>
-
-
-
 </head>
 
 <body>        
@@ -55,7 +112,7 @@ include('ConnectionModel.php');
                                 <a href="Add.php" class="sidebar-link">Add Employees</a>
                             </li>
                             <li class="sidebar-item">
-                                <a href="#" class="sidebar-link">View Employees</a>
+                                <a href="view.php" class="sidebar-link">View Employees</a>
                             </li>
                         </ul>
                     </li>
@@ -106,7 +163,7 @@ include('ConnectionModel.php');
                         </a>
                         <ul id="auth" class="sidebar-dropdown list-unstyled collapse" data-bs-parent="#sidebar">
                             <li class="sidebar-item">
-                                <a href="WorkAdd.php" class="sidebar-link">Add Workplaces</a>
+                                <a href="#" class="sidebar-link">Add Workplaces</a>
                             </li>
                             <li class="sidebar-item">
                                 <a href="Workview.php" class="sidebar-link">View Workplaces</a>
@@ -145,70 +202,56 @@ include('ConnectionModel.php');
 
                 <section>
                     <div class= main>
-                        <div class="container">   
-                            <?php
-                            if(isset($_GET['msg'])){
-                                $msg = $_GET['msg'];
-                                echo '<div class="alert alert-warning alert-dismissible fade show" 
-                                role="alert"> 
-                                '.$msg.'
-                                <button type="button class="btn-close" data-bs-dismiss="alert" 
-                                aria-label="Close"</button>
-                                </div>';
-                            } 
-                            ?>
-                            <h1 class="head">View Workplace Details</h1><br><br>
+                        <div class="container">    
+                            <h1 class="head">Edit Employee details</h1><br><br>
 
-                        
-                            <table class="table table-hover text-center">
-                                <thead class="table-dark">
-                                    <tr>
-                                        <th scope="col">Work_ID</th>
-                                        <th scope="col">Address</th>
-                                        <th scope="col">name</th>
-                                        <th scope="col">Owner_name</th>
-                                        <th scope="col">Owner_mobile</th>
-                                        <th scope="col">Action</th>
-                                    </tr><br>
-                                </thead>
-                                <tbody>
-
-                                    <?php
+                            <form action="Workedit.php?Newwork_ID=<?php echo $work_ID; ?>" method="post">
+                                <input type="hidden" name="work_ID" value="<?php echo $work_ID; ?>">
+                                <div class="row">
+                                    <legend class="col-form-label col-sm-2 pt-0"> Workplace Name: </legend>
+                                    <div class="col">
                                    
-                                    
-                                        // Fetch workplace details from database based on the selected ID
-                                        $query = "SELECT * FROM WorkPlace";
-                                        $result = mysqli_query($conn, $query);
-                                        $result = mysqli_query($conn, $query);
-                                        if (!$result) {
-                                            die("Query failed: " . mysqli_error($conn));
-                                        }
-                                    
-                                        // Display fetched data
-                                        while ($row = mysqli_fetch_assoc($result)) {
-                                            ?>
-                                            <tr> 
-                                                <td><?php echo $row['work_ID']?></td>
-                                                <td><?php echo $row['Address']?></td>
-                                                <td><?php echo $row['name']?></td>
-                                                <td><?php echo $row['Owner_name']?></td>
-                                                <td><?php echo $row['Owner_mobile']?></td>
-                                                <td>
-                                                    <a href="Workedit.php?id=<?php echo $row['work_ID'] ?>" class="link-dark">
-                                                    <i class="fas fa-edit fs-5 me-3"></i></a>
-                                                    <a href="Workdelete.php?id=<?php echo $row['work_ID'] ?>" class="link-dark">
-                                                    <i class="fas fa-trash fs-5"></i></a>
-                                                </td>
-                                            </tr>
-                                            <?php    
-                                        }
-                                    ?>
+                                        <input type="text" class="form-control" name="name" value="<?php echo $row['name']?>">
+                                   
+                                    </div>
+                                </div><br><br>
                                 
-                                </tbody> 
-                            </table>
+                                <div class="row">
+                                    <legend class="col-form-label col-sm-2 pt-0"> Workplace Address: </legend>
+                                    <div class="col">
+                                       
+                                            <input type="text" class="form-control" name="Address" value="<?php echo $row['Address']?>">
+                                       
+                                    </div>
+                                </div><br><br>
+
+                                <div class="row">
+                                    <legend class="col-form-label col-sm-2 pt-0"> Owner/Supervisor Name: </legend>
+                                    <div class="col">
+                                        
+                                            <input type="text" class="form-control" name="Owner_name" value="<?php echo $row['Owner_name']?>" >
+                                          
+                                    </div>
+                                </div><br><br>
+
+                                <div class="row">
+                                    <legend class="col-form-label col-sm-2 pt-0">Owner/Supervisor Telephone number:</legend>
+                                    <div class="col-auto">
+                                        
+                                            <input type="text" class="form-control" name="Owner_mobile"  value="<?php echo $row['Owner_mobile']?>">
+                                        
+                                    </div>
+                                </div><br><br>
+
+                                <div>
+                                    <button type="submit" class="btn btn-success" name="update" >Update</button>
+                                    <a href="index.php" class="btn btn-danger">Cancel</a>
+                                </div>
+                            </form>
                         </div>
                     </div>
-                                    </section>
+                </section>    
+
 
             </div> 
         </div>
