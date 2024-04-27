@@ -39,10 +39,10 @@
                     </a>
                     <ul id="auth" class="sidebar-dropdown list-unstyled collapse" data-bs-parent="#sidebar">
                         <li class="sidebar-item">
-                            <a href="Add.php" class="sidebar-link">Add Employees</a>
+                            <a href="Employee_Add.php" class="sidebar-link">Add Employees</a>
                         </li>
                         <li class="sidebar-item">
-                            <a href="#" class="sidebar-link">View Employees</a>
+                            <a href="Employee_view.php" class="sidebar-link">View Employees</a>
                         </li>
                     </ul>
                 </li>

@@ -1,6 +1,7 @@
 <?php
 include('ConnectionModel.php');
 
+
 $work_ID = isset($_GET['id']) ? $_GET['id'] : null;
 
 // Delete associated records in the `employee` table first

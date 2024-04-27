@@ -239,8 +239,25 @@ display: block;
 background-color: #45a049;
 }
 
-table,th,td{
-    border:2px solid black;
-    width:100px;
-    background-color:#3b7ddd;
+.table-container table {
+    width: 1200px;
+}
+
+
+.table-wrapper {
+    overflow-x: auto;
+}
+
+
+.table-wrapper table {
+    border-collapse: separate;
+    border-spacing: 0;
+    width: 100%;
+}
+
+
+
+.scroll-container {
+    overflow-x: auto;
+    width: 100%;
 }
