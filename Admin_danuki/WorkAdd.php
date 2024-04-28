@@ -5,15 +5,15 @@ $success='';
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     // Fetch data from the form
-    $workName = $_POST['workName'];
-    $workAddress = $_POST['workAddress'];
-    $OwnerName = $_POST['OwnerName'];
-    $OwnerTPno = $_POST['OwnerTPno'];
+    $Work_name = $_POST['Work_name'];
+    $Work_Address = $_POST['Work_Address'];
+    $Owner_name = $_POST['Owner_name'];
+    $Owner_mobile = $_POST['Owner_mobile'];
 
     // Insert data into the Workplace table
-    $stmt = $conn->prepare("INSERT INTO workplace(Address,name,Owner_name,Owner_mobile)
+    $stmt = $conn->prepare("INSERT INTO workplace(Work_Address,Work_name,Owner_name,Owner_mobile)
                             VALUES(?, ?, ?, ?)");
-    $stmt->bind_param("ssss",$workAddress,$workName,$OwnerName,$OwnerTPno);
+    $stmt->bind_param("ssss",$Work_Address,$Work_name,$Owner_name,$Owner_mobile);
 
     if($stmt->execute()){
         $success= '<div class="alert alert-success" role="alert">New record created successfully</div>';
@@ -34,28 +34,28 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                                 <div class="row">
                                     <legend class="col-form-label col-sm-2 pt-0"> Workplace Name: </legend>
                                     <div class="col">
-                                        <input type="text" class="form-control" name="workName" id="workName" placeholder="Telecom-Mannar">
+                                        <input type="text" class="form-control" name="Work_name" id="Work_name" placeholder="Telecom-Mannar">
                                     </div>
                                 </div><br><br>
                                 
                                 <div class="row">
                                     <legend class="col-form-label col-sm-2 pt-0"> Workplace Address: </legend>
                                     <div class="col">
-                                        <input type="text" class="form-control" name="workAddress" id="workAddress" placeholder="1234 Main St">
+                                        <input type="text" class="form-control" name="Work_Address" id="Work_Address" placeholder="1234 Main St">
                                     </div>
                                 </div><br><br>
 
                                 <div class="row">
                                     <legend class="col-form-label col-sm-2 pt-0"> Owner/Supervisor Name: </legend>
                                     <div class="col">
-                                        <input type="text" class="form-control" name="OwnerName" id="OwnerName" placeholder="">
+                                        <input type="text" class="form-control" name="Owner_name" id="Owner_name" placeholder="">
                                     </div>
                                 </div><br><br>
 
                                 <div class="row">
                                     <legend class="col-form-label col-sm-2 pt-0">Owner/Supervisor Telephone number:</legend>
                                     <div class="col-auto">
-                                        <input type="text" class="form-control" name="OwnerTPno" id="OwnerTPno" placeholder="0123456789">
+                                        <input type="text" class="form-control" name="Owner_mobile" id="Owner_mobile" placeholder="0123456789">
                                     </div>
                                 </div><br><br>
 

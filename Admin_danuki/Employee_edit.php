@@ -46,11 +46,11 @@ if(isset($_POST['update'])){
     $Work_name = $_POST['Work_name'];
     $Pay_method = $_POST['Pay_method'];
     $Acc_No = $_POST['Acc_No'];
-    $Bank_Name = $_POST['Bank_Name'];
+    $Bank_id = $_POST['Bank_Name'];
 
 
     // Update query
-    $query = "UPDATE `Employee` SET 
+    $query = "UPDATE `employee` SET 
     `Member_No`='$Member_No',
     `F_name`='$F_name',
     `L_name`='$L_name',
@@ -58,6 +58,9 @@ if(isset($_POST['update'])){
     `Gender`='$Gender', 
     `Address`='$Address', 
     `Mobile`='$Mobile', 
+    `Position_ID`='$Position_name',
+    `Pay_ID`='$Pay_method',
+    `work_ID`='$Work_name',
     `NIC`='$NIC'
     WHERE `EMP_ID`='$EMP_ID'";
 
@@ -65,41 +68,33 @@ if(isset($_POST['update'])){
 
     if (!$result) {
         die("Query2 failed: " . mysqli_error($conn));
-    } 
-
+        }
     
         // Update accountdetails table
         $update_account_query = "UPDATE `accountdetails` SET 
         `Acc_No`='$Acc_No',
-        `bank_id`=(SELECT `bank_id` FROM `bankdetails` WHERE `Bank_Name`='$Bank_Name')
+        `bank_id`='$Bank_id'
         WHERE `EMP_ID`='$EMP_ID'";
 
         $result = mysqli_query($conn, $update_account_query);
 
         if (!$result) {
-            die("Query failed: " . mysqli_error($conn));
-        }
+            die("Query3 failed: " . mysqli_error($conn));
+        }       
 
-        // Update employee position
-        $update_position_query = "UPDATE `employee` SET 
-        `Position_ID`=(SELECT `Position_ID` FROM `positions` WHERE `Position_name`='$Position_name'),
-        `Pay_ID`=(SELECT `Pay_ID` FROM `paymethod` WHERE `Pay_method`='$Pay_method'),
-        `work_ID`=(SELECT `work_ID` FROM `workplace` WHERE `Work_name`='$Work_name')
-        WHERE `EMP_ID`='$EMP_ID'";
-
-        $result = mysqli_query($conn, $update_position_query);
-
-        if (!$result) {
-            die("Query failed: " . mysqli_error($conn));
-        }
-
-        header("Location: Employee_view.php");
+        ?>
+        <script>
+            window.location.href = "Employee_view.php";
+        </script>
+        <?php 
         exit();
     }
+    
+
 ?>
                 <section>
                      <h1 class="head">Edit Employee Details</h1><br><br>
-                    <form action="Employee_edit.php?EMP_ID=<?php echo $EMP_ID; ?>" method="post">
+                    <form action="#" method="post">
                         <input type="hidden" name="EMP_ID" value="<?php echo $EMP_ID; ?>">
 
                         <div class="row">
@@ -114,7 +109,7 @@ if(isset($_POST['update'])){
                             <div class="col-auto">
                                 <select class="form-select"  name="Position_name" aria-label="position selection" >
                                     <?php
-                                    $Positions = mysqli_query($conn,"Select * from Positions");
+                                    $Positions = mysqli_query($conn,"Select * from positions");
                                     while($cc = mysqli_fetch_array($Positions)){
                                     ?>
 
@@ -195,7 +190,7 @@ if(isset($_POST['update'])){
                                 <select class="form-select"  name="Bank_Name" aria-label="Bank Selection">
 
                                 <?php
-                                $BankDetails = mysqli_query($conn," Select * from BankDetails");
+                                $BankDetails = mysqli_query($conn," Select * from bankdetails");
                                 while($c = mysqli_fetch_array($BankDetails)){
                                 ?>
                                 <option value="<?php echo $c['Bank_ID'] ?>" <?php if($c['Bank_Name'] == $row['Bank_Name']) echo 'selected'; ?>>
@@ -211,7 +206,7 @@ if(isset($_POST['update'])){
                             <div class="col-auto">
                                 <select class="form-select" name="Pay_method" aria-label="payment selection" >
                                     <?php
-                                    $PayMethod = mysqli_query($conn,"Select * from PayMethod");
+                                    $PayMethod = mysqli_query($conn,"Select * from paymethod");
                                     while($cc = mysqli_fetch_array($PayMethod)){
                                     ?>
                                      <option value="<?php echo $cc['Pay_ID'] ?>" <?php if($cc['Pay_method'] == $row['Pay_method']) echo 'selected'; ?>>
@@ -230,7 +225,7 @@ if(isset($_POST['update'])){
                             <div class="col-auto">
                                 <select class="form-select"  name="Work_name" aria-label="work Selection" >
                                     <?php
-                                    $WorkPlace = mysqli_query($conn,"Select * from WorkPlace");
+                                    $WorkPlace = mysqli_query($conn,"Select * from workplace");
                                     while($cc = mysqli_fetch_array($WorkPlace)){
                                     ?>
                                     <option value="<?php echo $cc['work_ID'] ?>" <?php if($cc['Work_name'] == $row['Work_name']) echo 'selected'; ?>>
@@ -248,8 +243,7 @@ if(isset($_POST['update'])){
                         </div>
                     </form>
                 </section>
-            </div> 
-        </div>
+      
             
                 
                 
@@ -259,7 +253,3 @@ if(isset($_POST['update'])){
                 crossorigin="anonymous"></script>
         <script src="script.js"></script>
                 
-
-   
-</body>
-</html>

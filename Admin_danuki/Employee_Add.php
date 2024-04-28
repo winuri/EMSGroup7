@@ -169,7 +169,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                             <div class="col-auto">
                                 <select class="form-select" id="workSelect" name="workSelect" aria-label="work Selection" >
                                     <?php
-                                    $WorkPlace = mysqli_query($conn,"Select * from WorkPlace");
+                                    $WorkPlace = mysqli_query($conn,"Select * from workplace");
                                     while($cc = mysqli_fetch_array($WorkPlace)){
                                     ?>
                                     <option value="<?php echo $cc['work_ID'] ?>"><?php echo $cc['Work_name']?></option>    

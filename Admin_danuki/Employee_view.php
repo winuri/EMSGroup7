@@ -44,7 +44,7 @@ if ($conn->connect_error) {
                                                 p.Position_name, w.Work_name, pay.Pay_method, ad.Acc_No, bd.Bank_Name, e.EMP_ID
                                                 FROM employee AS e
                                                 JOIN accountdetails AS ad ON e.EMP_ID = ad.EMP_ID
-                                                JOIN bankdetails AS bd ON ad.bank_id = bd.bank_id
+                                                JOIN bankdetails AS bd ON ad.Bank_ID = bd.Bank_ID
                                                 JOIN positions AS p ON e.Position_ID = p.Position_ID
                                                 JOIN paymethod AS pay ON e.Pay_ID = pay.Pay_ID
                                                 JOIN workplace AS w ON e.work_ID = w.work_ID";
@@ -95,18 +95,9 @@ if ($conn->connect_error) {
 
 
 
-            </div> 
-    </div>
-            
-                
-                
 
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js"
                 integrity="sha384-ENjdO4Dr2bkBIFxQpeoTz1HIcje39Wm4jDKdf19U8gI4ddQ3GYNS7NTKfAdVQSZe"
                 crossorigin="anonymous"></script>
         <script src="script.js"></script>
                 
-
-    
-</body>
-</html>
