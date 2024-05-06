@@ -35,7 +35,7 @@ if(isset($_POST['update_credentials'])) {
         // Update username and password in the database
         // Perform necessary validation and sanitization before updating the database
         // For example, you can use prepared statements to prevent SQL injection
-        $updateQuery = "UPDATE employee SET Username = '$newUsername', Password = '$newPassword' WHERE Member_No = 1";
+        $updateQuery = "UPDATE user SET username = '$newUsername', password = '$newPassword' WHERE User_Id = 1";
         $updateResult = $conn->query($updateQuery);
         if($updateResult) {
             $success = "Username and password updated successfully.";
