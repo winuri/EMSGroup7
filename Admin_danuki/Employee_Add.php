@@ -42,14 +42,16 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
 ?>
 
-                <section>
+        <section>
+            <div class= main>
+                <div class="container">  
                      <h1 class="head">Add New Employee Details</h1><br><br>
-                    <form action="" method="post">
+                     <form action="" method="post" onsubmit="return validateForm()">
 
                         <div class="row">
                             <legend class="col-form-label col-sm-2 pt-0">Member number:</legend>
                             <div class="col-auto">
-                            <input type="text" class="form-control" name="memNo" id="memNo" placeholder="111">
+                            <input type="text" class="form-control" name="memNo" id="memNo" placeholder="111" required>
                             </div>
                         </div><br><br>
 
@@ -73,10 +75,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                         <div class="row">
                             <legend class="col-form-label col-sm-2 pt-0">Employee Name:</legend>
                             <div class="col">
-                                <input type="text" class="form-control" placeholder="First name" aria-label="First name" name="fname" >
+                                <input type="text" class="form-control" placeholder="First name" aria-label="First name" name="fname" required>
                             </div>
                             <div class="col">
-                                <input type="text" class="form-control" placeholder="Last name" aria-label="Last name" name="lname" >
+                                <input type="text" class="form-control" placeholder="Last name" aria-label="Last name" name="lname" required>
                             </div>
                         </div><br><br>
 
@@ -105,34 +107,31 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                             </div>
                         </fieldset><br>  
                         
-
-
                         <div class="row">
                             <legend class="col-form-label col-sm-2 pt-0">Address</legend>
                             <div class="col">
-                            <input type="text" class="form-control" name="inputAddress" id="inputAddress" placeholder="1234 Main St">
+                            <input type="text" class="form-control" name="inputAddress" id="inputAddress" placeholder="1234 Main St" required>
                             </div>
                         </div><br><br>
 
                         <div class="row">
                             <legend class="col-form-label col-sm-2 pt-0">Telephone number:</legend>
                             <div class="col-auto">
-                            <input type="text" class="form-control" name="inputTPno" id="inputTPno" placeholder="0123456789">
+                            <input type="text" class="form-control" name="inputTPno" id="inputTPno" placeholder="0123456789" required>
                             </div>
                         </div><br><br>
-
 
                         <div class="row">
                             <legend class="col-form-label col-sm-2 pt-0">NIC number:</legend>
                             <div class="col-auto">
-                            <input type="text" class="form-control" name="NIC" placeholder="12345678V / 74125896352" >
+                            <input type="text" class="form-control" name="NIC" placeholder="686052638V/196860526382" required>
                             </div>
                         </div><br><br>
 
                         <div class="row">
                         <legend class="col-form-label col-sm-2 pt-0">Account Number:</legend>
                             <div class="col">
-                                <input type="text" class="form-control" name="accountNumber" placeholder="Account number" aria-label="Account Number">
+                                <input type="text" class="form-control" name="accountNumber" placeholder="Account number" aria-label="Account Number" required>
                             </div>
                             <div class="col">
                                 <select class="form-select" id="bankSelect" name="bankSelect" aria-label="Bank Selection">
@@ -182,11 +181,38 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                         <input class="btn btn-primary" type="submit" value="Submit" style="color:black;">
                         <input class="btn btn-primary" type="reset" value="Reset" style="color:black;">
                     </form>
-                </section>
-            </div> 
-        </div>
+                </div>
+            </div>   
+        </section>
             
-                
+            
+        <script>
+            function validateForm() {
+            // Validate mobile number
+                var mobileNumber = document.getElementById("inputTPno").value;
+                if (!/^\d+$/.test(mobileNumber)) {
+                    alert("Mobile number should only contain numbers.");
+                    return false;
+                }
+
+                // Validate account number
+                var accountNumber = document.getElementById("accountNumber").value;
+                if (!/^\d+$/.test(accountNumber)) {
+                    alert("Account number should only contain numbers.");
+                    return false;
+                }
+
+                // Validate NIC
+                var NIC = document.getElementById("NIC").value;
+                if (!/^\d{9}(V|\d{3})$/.test(NIC)) {
+                    alert("NIC should be either 12 numbers or 9 numbers followed by the letter 'V'.");
+                    return false;
+                }
+
+                return true;
+            }
+        </script>
+       
                 
 
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js"

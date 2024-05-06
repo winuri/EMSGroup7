@@ -238,8 +238,8 @@ if(isset($_POST['update'])){
                         </div><br><br>
                     
                         <div>
-                            <button type="submit" class="btn btn-success" name="update" >Update</button>
-                            <a href="index.php" class="btn btn-danger">Cancel</a>
+                            <button type="submit" class="btn btn-success" style="color:black;" name="update" >Update</button>
+                            <a href="index.php" class="btn btn-danger" style="color:black;">Cancel</a>
                         </div>
                     </form>
                 </section>

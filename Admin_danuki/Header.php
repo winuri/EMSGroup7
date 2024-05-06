@@ -34,7 +34,7 @@
                         <i class="lni lni-grid-alt"></i>
                     </button>
                     <div class="sidebar-logo">
-                        <a href="#">Admin Dashborad</a>
+                        <a href="Index.php">Admin Dashborad</a>
                     </div>
                 </div>
                 <ul class="sidebar-nav">
@@ -112,7 +112,7 @@
 
                 </ul>
                 <div class="sidebar-footer">
-                    <a href="#" class="sidebar-link">
+                    <a href="Logout.php" class="sidebar-link">
                         <i class="lni lni-exit"></i>
                         <span>Logout</span>
                     </a>
