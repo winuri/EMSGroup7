@@ -3,7 +3,7 @@ include('ConnectionModel.php');
 include('Header.php');
 $success = '';
 
-// Check if connection was successful
+// Check if connection was successful...
 if ($conn->connect_error) {
     die("Connection failed: " . $conn->connect_error);
 }
