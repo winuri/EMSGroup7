@@ -21,7 +21,7 @@
                     $password = $_POST['password'];
 
                     // Check if username and password match admin credentials
-                    if($username === 'Admin' && $password === 'Admin123'){
+                    if($username === 'Admin1' && $password === 'Admin111'){
                         // Redirect to admin dashboard
                         header('Location: Home.php');
                         exit();

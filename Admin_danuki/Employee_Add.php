@@ -131,7 +131,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                         <div class="row">
                         <legend class="col-form-label col-sm-2 pt-0">Account Number:</legend>
                             <div class="col">
-                                <input type="text" class="form-control" name="accountNumber" placeholder="Account number" aria-label="Account Number" required>
+                                <input type="text" class="form-control" name="accountNumber" placeholder="Account number" aria-label="Account Number" >
                             </div>
                             <div class="col">
                                 <select class="form-select" id="bankSelect" name="bankSelect" aria-label="Bank Selection">
