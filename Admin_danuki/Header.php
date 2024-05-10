@@ -34,7 +34,7 @@
                         <i class="lni lni-grid-alt"></i>
                     </button>
                     <div class="sidebar-logo">
-                        <a href="Index.php">Admin Dashborad</a>
+                        <a href="Home.php">Admin Dashborad</a>
                     </div>
                 </div>
                 <ul class="sidebar-nav">
