@@ -11,25 +11,31 @@
       <div class="container">
         <div class="box form-box">
             <?php
-                // Include connection 
-                include('ConnectionModel.php');
+             // Include connection 
+             include('ConnectionModel.php');
 
-                // Check if form is submitted
-                if(isset($_POST['submit'])){
-                    // Retrieve username and password from form
-                    $username = $_POST['username'];
-                    $password = $_POST['password'];
+             // Check if form is submitted
+             if(isset($_POST['submit'])){
+                 // Retrieve username and password from form
+                 $username = $_POST['username'];
+                 $password = $_POST['password'];
 
-                    // Check if username and password match admin credentials
-                    if($username === 'Admin1' && $password === 'Admin111'){
-                        // Redirect to admin dashboard
-                        header('Location: Home.php');
-                        exit();
-                    } else {
-                        // Display error message if credentials are incorrect
-                        echo '<p style="color: red;">Invalid username or password</p>';
-                    }
-                }
+                 // Query to check if the username and password match for emp_id=19
+                 $query = "SELECT * FROM user WHERE EMP_ID = 19 AND username = '$username' AND password = '$password'";
+                 $result = mysqli_query($conn, $query);
+
+                 // Check if a row is returned
+                 if(mysqli_num_rows($result) === 1) {
+                     // Redirect to admin dashboard
+                     header('Location: Home.php');
+                     exit();
+                 } else {
+                     // Display error message if credentials are incorrect
+                     echo '<p style="color: red;">Invalid username or password</p>';
+                 }
+             }
+              
+                
             ?>
         <header>Login</header>
             <form action="" method="post">
