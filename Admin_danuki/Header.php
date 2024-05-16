@@ -63,7 +63,7 @@
                         </a>
                         <ul id="auth" class="sidebar-dropdown list-unstyled collapse" data-bs-parent="#sidebar">
                             <li class="sidebar-item">
-                                <a href="#" class="sidebar-link">View Attendance</a>
+                                <a href="Attendance_View.php" class="sidebar-link">View Attendance</a>
                             </li>
                             <li class="sidebar-item">
                                 <a href="#" class="sidebar-link">View Leave</a>
@@ -90,7 +90,7 @@
                         </a>
                         <ul id="auth" class="sidebar-dropdown list-unstyled collapse" data-bs-parent="#sidebar">
                             <li class="sidebar-item">
-                                <a href="#" class="sidebar-link">View Inventory Details</a>
+                                <a href="Inventory_view.php" class="sidebar-link">View Inventory Details</a>
                             </li>
                         </ul>
                     </li>
