@@ -8,8 +8,13 @@
     <title>Login</title>
 </head>
 <body>
+    <div class="main center-text">
+        <h1>Himali Janitorial and Security service Company</h1><br><br>
+        <h2>Welcome to Employee Management System</h2>
+    </div>
       <div class="container">
         <div class="box form-box">
+        
             <?php
              // Include connection 
              include('ConnectionModel.php');

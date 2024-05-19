@@ -22,6 +22,8 @@ if($result->num_rows > 0) {
     echo "No data found for the admin user with member number 1.";
 }
 
+
+/*
 // Update admin username and password if the form is submitted
 if(isset($_POST['update_credentials'])) {
     $newUsername = $_POST['new_username'];
@@ -33,8 +35,6 @@ if(isset($_POST['update_credentials'])) {
         $error = "Passwords do not match.";
     } else {
         // Update username and password in the database
-        // Perform necessary validation and sanitization before updating the database
-        // For example, you can use prepared statements to prevent SQL injection
         $updateQuery = "UPDATE user SET username = '$newUsername', password = '$newPassword' WHERE User_Id = 1";
         $updateResult = $conn->query($updateQuery);
         if($updateResult) {
@@ -44,6 +44,50 @@ if(isset($_POST['update_credentials'])) {
         }
     }
 }
+
+*/
+
+if (isset($_POST['update_credentials'])) {
+    $newUsername = $_POST['new_username'];
+    $newPassword = $_POST['new_password'];
+    $confirmPassword = $_POST['confirm_password'];
+
+    // Check if passwords match
+    if ($newPassword !== $confirmPassword) {
+        $error = "Passwords do not match.";
+    } else {
+        // Check if Member_No = 1 in the employee table and the EMP_ID is the same in the user table
+        $checkAdminQuery = "
+            SELECT user.EMP_ID 
+            FROM user 
+            JOIN employee ON user.EMP_ID = employee.EMP_ID 
+            WHERE employee.Member_No = 1
+        ";
+        $checkAdminResult = $conn->query($checkAdminQuery);
+
+        if ($checkAdminResult->num_rows > 0) {
+            // Hash the new password
+            $hashedPassword = password_hash($newPassword, PASSWORD_BCRYPT);
+
+            // Update username and password in the user table for the corresponding emp_id
+            $updateQuery = "UPDATE user SET username = ?, password = ? WHERE EMP_ID IN (
+                SELECT EMP_ID FROM employee WHERE Member_No = 1
+            )";
+            $stmt = $conn->prepare($updateQuery);
+            $stmt->bind_param("ss", $newUsername, $hashedPassword);
+            
+            if ($stmt->execute()) {
+                $success = "Username and password updated successfully.";
+            } else {
+                $error = "Error updating username and password.";
+            }
+            $stmt->close();
+        } else {
+            $error = "Admin not found or invalid Member_No.";
+        }
+    }
+}
+
 ?>
 
 

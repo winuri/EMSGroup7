@@ -8,6 +8,11 @@
 body{
     background: #e4e9f7;
 }
+
+.center-text {
+    text-align: center;
+}
+
 .container{
     display: flex;
     align-items: center;
