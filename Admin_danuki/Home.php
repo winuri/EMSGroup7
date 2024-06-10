@@ -23,29 +23,6 @@ if($result->num_rows > 0) {
 }
 
 
-/*
-// Update admin username and password if the form is submitted
-if(isset($_POST['update_credentials'])) {
-    $newUsername = $_POST['new_username'];
-    $newPassword = $_POST['new_password'];
-    $confirmPassword = $_POST['confirm_password'];
-
-    // Check if passwords match
-    if($newPassword !== $confirmPassword) {
-        $error = "Passwords do not match.";
-    } else {
-        // Update username and password in the database
-        $updateQuery = "UPDATE user SET username = '$newUsername', password = '$newPassword' WHERE User_Id = 1";
-        $updateResult = $conn->query($updateQuery);
-        if($updateResult) {
-            $success = "Username and password updated successfully.";
-        } else {
-            $error = "Error updating username and password.";
-        }
-    }
-}
-
-*/
 
 if (isset($_POST['update_credentials'])) {
     $newUsername = $_POST['new_username'];
