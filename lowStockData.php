@@ -5,7 +5,7 @@ header('Content-Type: application/json');
 $servername = "localhost";
 $username = "root";
 $password = "1234";
-$dbname = "EmployeeDatabase";
+$dbname = "emsdatabase";
 
 // Create connection
 $conn = new mysqli($servername, $username, $password, $dbname);
@@ -15,7 +15,7 @@ if ($conn->connect_error) {
     die("Connection failed: " . $conn->connect_error);
 }
 
-$sql = "SELECT Tool_name, Quantity FROM Inventory WHERE Quantity < 5"; // Adjust the condition as per your requirement
+$sql = "SELECT Tool_name, Quantity FROM inventory WHERE Quantity < 10"; // Adjust the condition as per your requirement
 $result = $conn->query($sql);
 
 $data = array();
