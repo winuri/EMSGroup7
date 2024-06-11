@@ -2,7 +2,7 @@
 $servername = "localhost";
 $username = "root";
 $password = "1234";
-$dbname = "EmployeeDatabase";
+$dbname = "emsdatabase";
 
 $conn = new mysqli($servername, $username, $password, $dbname);
 if ($conn->connect_error) {
@@ -11,7 +11,7 @@ if ($conn->connect_error) {
 
 $tool_id = isset($_GET['tool_id']) ? $_GET['tool_id'] : '';
 
-$sql = "SELECT Tool_ID, Tool_Name, Quantity, Purchase_Date FROM inventory WHERE Tool_ID = ?";
+$sql = "SELECT Tool_ID, Tool_Name, Quantity,Price, Purchase_Date FROM inventory WHERE Tool_ID = ?";
 $stmt = $conn->prepare($sql);
 $stmt->bind_param("s", $tool_id);
 $stmt->execute();
