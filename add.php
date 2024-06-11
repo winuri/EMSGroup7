@@ -11,7 +11,7 @@
             font-family: Arial, sans-serif;
         }
         .sidebar {
-            background-color: #15038e;
+            background-color: #083C71;
             color: #fff;
             height: 100vh;
             width: 150px;
@@ -19,8 +19,16 @@
             top: 0;
             left: 0;
             padding-top: 20px;
-            text-align: center;
+            text-align: left;
+		}
+		
+		/* Navigation Bar Styles */
+		.navbar {
+		background-color: #083C71;	 /* Updated navy blue background color */
+		padding-top: 10px; 			 /* Adjusted padding for top */
+		
         }
+		
         .container {
             margin-left: 170px;
             padding-top: 80px;
@@ -38,19 +46,29 @@
         input, select, button {
             margin: 5px;
         }
-        .low-stock {
-            background-color: #ffdddd; /* Reddish background for low stock */
+		th {
+            background-color: #ACDDFE;
+            color: black;
         }
+        tr:nth-child(even) {
+            background-color: #DEF1FE;
+		}
+        .low-stock {
+            background-color: white;	 /* Reddish background for low stock */
+        }
+		
+		
+
         .confirmationMessage {
             color: green; 
             margin-top: 20px;
         }
         /* Styles for Add Tool button */
         .add-tool-button, .cancel-button {
-            background-color: #4CAF50; /* Green */
+            background-color: #4CAF50; 		/* Green */
             border: none;
             color: white;
-            padding: 10px 20px; /* Adjusted padding */
+            padding: 10px 20px; 			/* Adjusted padding */
             text-align: center;
             text-decoration: none;
             display: inline-block;
@@ -58,28 +76,78 @@
             margin: 4px 2px;
             cursor: pointer;
             border-radius: 4px;
-            width: 120px; /* Adjusted width */
+            width: 120px; 					/* Adjusted width */
         }
-		
 
         /* Styles for Cancel button */
         .cancel-button {
-            background-color: #f44336; /* Red */
+            background-color: #f44336; 		/* Red */
         }
-		canvas {
+        canvas {
             max-width: 400px;
             max-height: 200px;
-			 
         }
+		.sidebar ul {
+    padding-left: 0; 						/* Remove default padding */
+}
+		
+	.sidebar-item a {
+    color: #fff; 							/* Adjusted link color */
+    text-decoration: none;
+    display: block; 						/* Make links full width */
+    padding: 10px; 							/* Adjusted padding */
+}
+
+.sidebar-item a:hover {
+    background-color: #2a2a72; 				/* Hover color */
+}
+
+
+
+.sidebar-item.active .collapse {
+    display: block; 						/* Show submenu when parent is active */
+}
     </style>
 </head>
 <body>
+
+
+  <!-- Navigation Bar -->
+    <div class="navbar">
+        <div class="container">
+            
+                </ul>
+            </nav>
+        </div>
+    </div>
+	
+	
     <div class="sidebar">
         <ul>
-            <!-- Navigation items can be added here -->
+            <!-- Navigation items  added here -->
+			<ul class="list-unstyled">
+            <li class="sidebar-item">
+               <a href="#toolSubmenu" data-toggle="collapse" aria-expanded="false">
+                 <i class="lni lni-cog"></i> <a href = "index.php">Tool Management</a>
+                <ul class="collapse list-unstyled" id="toolSubmenu">
+                    <li class="sidebar-item">
+                        <a href="add.php">Add Tool</a>
+                    </li>
+                    <li class="sidebar-item">
+                        <a href="delete new.php">Update Tool</a>
+                    </li>
+                    <li class="sidebar-item">
+                        <a href="delete new.php">Delete Tool</a>
+                    </li>
+                    <li class="sidebar-item">
+                        <a href="view.php">View Tools</a>
+                    </li>
+                </ul>
+            </li>
+        </ul>
         </ul>
     </div>
-		
+        
     <div class="container">
         <h2>Low Stock Tools</h2>
         <table id="lowStockTable">
@@ -96,14 +164,14 @@
                 $servername = "localhost";
                 $username = "root";
                 $password = "1234";
-                $dbname = "EmployeeDatabase";
+                $dbname = "emsdatabase";
                 $conn = new mysqli($servername, $username, $password, $dbname);
                 if ($conn->connect_error) {
                     die("Connection failed: " . $conn->connect_error);
                 }
 
                 // Fetch tools with low stock
-                $sql = "SELECT Tool_name, Tool_ID, Quantity FROM Inventory WHERE Quantity < 5"; // Assuming low stock is less than 5
+                $sql = "SELECT Tool_name, Tool_ID, Quantity FROM inventory WHERE Quantity < 5 LIMIT 5"; // Limit to the first five low stock tools
                 $result = $conn->query($sql);
                 if ($result->num_rows > 0) {
                     while ($row = $result->fetch_assoc()) {
@@ -120,16 +188,16 @@
                 ?>
             </tbody>
         </table>
-		<br>
+        <br>
 
         <!-- Chart Container -->
         <div style="width: 50%;">
             <canvas id="lowStockChart"></canvas>
         </div>
-		<br>
+        <br>
 
         <h2>Add New Tool</h2>
-		<br>
+        <br>
         <table id="toolTable">
             <thead>
                 <tr>
@@ -151,7 +219,7 @@
                             }
 
                             // Query to fetch distinct tool names from the Inventory table
-                            $sql = "SELECT DISTINCT Tool_name FROM Inventory ORDER BY Tool_name"; // Ordering by Tool_name for better user experience
+                            $sql = "SELECT DISTINCT Tool_name FROM inventory ORDER BY Tool_name"; // Ordering by Tool_name for better user experience
                             $result = $conn->query($sql);
                             
                             if ($result->num_rows > 0) {
@@ -166,7 +234,7 @@
                             ?>
                         </select>
                     </td>
-                    <td><input type="text" id="newToolId" placeholder="Tool ID"></td>
+                    <td><input type="text" id="newToolId" placeholder="Tool ID" readonly></td>
                     <td><input type="number" id="newQuantity" placeholder="Quantity"></td>
                     <td><input type="date" id="newPurchaseDate"></td>
                     <td><input type="file" id="newToolPhoto"></td>
@@ -189,21 +257,57 @@
     <script>
         // Fetch data for low stock tools from your database
         var lowStockData = {
-            labels: ["Tool 1", "Tool 2", "Tool 3"], // Tool names
+            labels: [<?php
+                // Fetching tool names for the chart
+                $conn = new mysqli($servername, $username, $password, $dbname);
+                if ($conn->connect_error) {
+                    die("Connection failed: " . $conn->connect_error);
+                }
+                $sql = "SELECT Tool_name FROM inventory WHERE Quantity < 5 LIMIT 5"; // Limiting to the first five low stock tools
+                $result = $conn->query($sql);
+                $toolNames = array();
+                if ($result->num_rows > 0) {
+                    while ($row = $result->fetch_assoc()) {
+                        array_push($toolNames, $row["Tool_name"]);
+                    }
+                }
+                echo '"' . implode('", "', $toolNames) . '"';
+                $conn->close();
+            ?>],
             datasets: [{
                 label: "Quantity",
                 backgroundColor: [
                     'rgba(255, 99, 132, 0.2)', // Red
-                    'rgba(54, 162, 235, 0.2)', // Blue
-                    'rgba(255, 206, 86, 0.2)' // Yellow
+					'rgba(75, 192, 192, 1)', // Green
+                    'rgba(255, 206, 86, 0.2)', // Yellow
+                    'rgba(153, 102, 255, 0.2)',// Purple shadow
+                    'rgba(153, 102, 255, 0.2)' // Purple
                 ],
                 borderColor: [
                     'rgba(255, 99, 132, 1)', // Red
-                    'rgba(54, 162, 235, 1)', // Blue
-                    'rgba(255, 206, 86, 1)' // Yellow
+                    'rgba(75, 192, 192, 1)', // Green
+                    'rgba(255, 206, 86, 1)', // Yellow
+                    'rgba(153, 102, 255, 0.2)',// Purple shadow
+                    'rgba(153, 102, 255, 1)' // Purple
                 ],
                 borderWidth: 1,
-                data: [3, 2, 4] // Quantity for each tool
+                data: [<?php
+                    // Fetching quantity for the first five low stock tools
+                    $conn = new mysqli($servername, $username, $password, $dbname);
+                    if ($conn->connect_error) {
+                        die("Connection failed: " . $conn->connect_error);
+                    }
+                    $sql = "SELECT Quantity FROM inventory WHERE Quantity < 5 LIMIT 5"; // Limiting to the first five low stock tools
+                    $result = $conn->query($sql);
+                    $quantities = array();
+                    if ($result->num_rows > 0) {
+                        while ($row = $result->fetch_assoc()) {
+                            array_push($quantities, $row["Quantity"]);
+                        }
+                    }
+                    echo implode(', ', $quantities);
+                    $conn->close();
+                ?>]
             }]
         };
 
