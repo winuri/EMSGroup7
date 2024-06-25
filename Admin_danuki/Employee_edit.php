@@ -89,142 +89,146 @@ if(isset($_POST['update'])){
 }
 ?>
 <section>
-        <h1 class="head">Edit Employee Details</h1><br><br>
-    <form action="#" method="post">
-        <input type="hidden" name="EMP_ID" value="<?php echo $EMP_ID; ?>">
+    <div class="main">
+        <div class="container">  
+            <h1 class="head">Edit Employee Details</h1><br><br>
+            <form action="#" method="post">
+                <input type="hidden" name="EMP_ID" value="<?php echo $EMP_ID; ?>">
 
-        <div class="row">
-            <legend class="col-form-label col-sm-2 pt-0">Member number:</legend>
-            <div class="col-auto">
-                <input type="text" class="form-control" name="Member_No" value= "<?php echo isset($row['Member_No']) ? $row['Member_No'] : ''; ?>">
-            </div>
-        </div><br><br>
+                <div class="row">
+                    <legend class="col-form-label col-sm-2 pt-0">Member number:</legend>
+                    <div class="col-auto">
+                        <input type="text" class="form-control" name="Member_No" value= "<?php echo isset($row['Member_No']) ? $row['Member_No'] : ''; ?>">
+                    </div>
+                </div><br><br>
 
-        <div class="row">
-            <legend class="col-form-label col-sm-2 pt-0">Position:</legend>
-            <div class="col-auto">
-                <select class="form-select"  name="Position_name" aria-label="position selection" >
-                    <?php
-                    $Positions = mysqli_query($conn,"Select * from positions");
-                    while($cc = mysqli_fetch_array($Positions)){
-                    ?>
+                <div class="row">
+                    <legend class="col-form-label col-sm-2 pt-0">Position:</legend>
+                    <div class="col-auto">
+                        <select class="form-select"  name="Position_name" aria-label="position selection" >
+                            <?php
+                            $Positions = mysqli_query($conn,"Select * from positions");
+                            while($cc = mysqli_fetch_array($Positions)){
+                            ?>
 
-                    <option value="<?php echo $cc['Position_ID'] ?>" <?php if(isset($row['Position_name']) && $cc['Position_name'] == $row['Position_name']) echo 'selected'; ?>>
-                        <?php echo $cc['Position_name']?>
-                    </option>     
-                    <?php }?>
-                </select>
-            </div>
-        </div><br><br>
+                            <option value="<?php echo $cc['Position_ID'] ?>" <?php if(isset($row['Position_name']) && $cc['Position_name'] == $row['Position_name']) echo 'selected'; ?>>
+                                <?php echo $cc['Position_name']?>
+                            </option>     
+                            <?php }?>
+                        </select>
+                    </div>
+                </div><br><br>
 
-        <div class="row">
-            <legend class="col-form-label col-sm-2 pt-0">Employee Name:</legend>
-            <div class="col">
-                <input type="text" class="form-control" aria-label="First name" name="F_name" value="<?php echo isset($row['F_name']) ? $row['F_name'] : ''; ?>">
-            </div>
-            <div class="col">
-                <input type="text" class="form-control" aria-label="Last name" name="L_name" value="<?php echo isset($row['L_name']) ? $row['L_name'] : ''; ?>">
-            </div>
-        </div><br><br>
+                <div class="row">
+                    <legend class="col-form-label col-sm-2 pt-0">Employee Name:</legend>
+                    <div class="col">
+                        <input type="text" class="form-control" aria-label="First name" name="F_name" value="<?php echo isset($row['F_name']) ? $row['F_name'] : ''; ?>">
+                    </div>
+                    <div class="col">
+                        <input type="text" class="form-control" aria-label="Last name" name="L_name" value="<?php echo isset($row['L_name']) ? $row['L_name'] : ''; ?>">
+                    </div>
+                </div><br><br>
 
-        <div class="row">
-            <legend class="col-form-label col-sm-2 pt-0">Date Of Birth:</legend>
-            <div class="col-auto">
-                <input type="date" class="form-control" name="DOB" value="<?php echo isset($row['DOB']) ? $row['DOB'] : ''; ?>">
-            </div>
-        </div><br><br>
+                <div class="row">
+                    <legend class="col-form-label col-sm-2 pt-0">Date Of Birth:</legend>
+                    <div class="col-auto">
+                        <input type="date" class="form-control" name="DOB" value="<?php echo isset($row['DOB']) ? $row['DOB'] : ''; ?>">
+                    </div>
+                </div><br><br>
 
-        <fieldset class="row mb-3">
-            <legend class="col-form-label col-sm-2 pt-0">Gender:</legend>
-            <div class="col-sm-10">
-                <div class="form-check">
-                    <input class="form-check-input" type="radio" name="Gender"  value="Male" <?php if (isset($row['Gender']) && $row['Gender'] == 'Male') echo 'checked' ?>>
-                    Male
+                <fieldset class="row mb-3">
+                    <legend class="col-form-label col-sm-2 pt-0">Gender:</legend>
+                    <div class="col-sm-10">
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" name="Gender"  value="Male" <?php if (isset($row['Gender']) && $row['Gender'] == 'Male') echo 'checked' ?>>
+                            Male
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" name="Gender"  value="Female" <?php if (isset($row['Gender']) && $row['Gender'] == 'Female') echo 'checked' ?>>
+                            Female
+                        </div>
+                    </div>
+                </fieldset><br>  
+
+                <div class="row">
+                    <legend class="col-form-label col-sm-2 pt-0">Address</legend>
+                    <div class="col">
+                        <input type="text" class="form-control" name="Address" value="<?php echo isset($row['Address']) ? $row['Address'] : ''; ?>">
+                    </div>
+                </div><br><br>
+
+                <div class="row">
+                    <legend class="col-form-label col-sm-2 pt-0">Telephone number:</legend>
+                    <div class="col-auto">
+                        <input type="text" class="form-control" name="Mobile" value="<?php echo isset($row['Mobile']) ? $row['Mobile'] : ''; ?>">
+                    </div>
+                </div><br><br>
+
+                <div class="row">
+                    <legend class="col-form-label col-sm-2 pt-0">NIC number:</legend>
+                    <div class="col-auto">
+                        <input type="text" class="form-control" name="NIC" value="<?php echo isset($row['NIC']) ? $row['NIC'] : ''; ?>">
+                    </div>
+                </div><br><br>
+
+                <div class="row">
+                    <legend class="col-form-label col-sm-2 pt-0">Account Number:</legend>
+                    <div class="col">
+                        <input type="text" class="form-control" aria-label="Account Number" name="Acc_No" value="<?php echo isset($row['Acc_No']) ? $row['Acc_No'] : ''; ?>">
+                    </div>
+                    <div class="col">
+                        <select class="form-select"  name="Bank_Name" aria-label="Bank Selection">
+                            <?php
+                            $BankDetails = mysqli_query($conn," Select * from bankdetails");
+                            while($c = mysqli_fetch_array($BankDetails)){
+                            ?>
+                            <option value="<?php echo $c['Bank_ID'] ?>" <?php if(isset($row['Bank_Name']) && $c['Bank_Name'] == $row['Bank_Name']) echo 'selected'; ?>>
+                                <?php echo $c['Bank_Name']?>
+                            </option>
+                            <?php } ?>
+                        </select>
+                    </div>
+                </div><br><br>
+
+                <div class="row">
+                    <legend class="col-form-label col-sm-2 pt-0">Payment Method:</legend>
+                    <div class="col-auto">
+                        <select class="form-select" name="Pay_method" aria-label="payment selection" >
+                            <?php
+                            $PayMethod = mysqli_query($conn,"Select * from paymethod");
+                            while($cc = mysqli_fetch_array($PayMethod)){
+                            ?>
+                            <option value="<?php echo $cc['Pay_ID'] ?>" <?php if(isset($row['Pay_method']) && $cc['Pay_method'] == $row['Pay_method']) echo 'selected'; ?>>
+                                <?php echo $cc['Pay_method']?>
+                            </option>
+                            <?php }?>
+                        </select>
+                    </div>
+                </div><br><br>
+
+                <div class="row">
+                    <legend class="col-form-label col-sm-2 pt-0">Working Place:</legend>
+                    <div class="col-auto">
+                        <select class="form-select"  name="Work_name" aria-label="work Selection" >
+                            <?php
+                            $WorkPlace = mysqli_query($conn,"Select * from workplace");
+                            while($cc = mysqli_fetch_array($WorkPlace)){
+                            ?>
+                            <option value="<?php echo $cc['work_ID'] ?>" <?php if(isset($row['Work_name']) && $cc['Work_name'] == $row['Work_name']) echo 'selected'; ?>>
+                                <?php echo $cc['Work_name']?>
+                            </option>
+                            <?php }?>
+                        </select>
+                    </div>
+                </div><br><br>
+
+                <div>
+                    <button type="submit" class="btn btn-success" style="color:black;" name="update" >Update</button>
+                    <a href="index.php" class="btn btn-danger" style="color:black;">Cancel</a>
                 </div>
-                <div class="form-check">
-                    <input class="form-check-input" type="radio" name="Gender"  value="Female" <?php if (isset($row['Gender']) && $row['Gender'] == 'Female') echo 'checked' ?>>
-                    Female
-                </div>
-            </div>
-        </fieldset><br>  
-
-        <div class="row">
-            <legend class="col-form-label col-sm-2 pt-0">Address</legend>
-            <div class="col">
-                <input type="text" class="form-control" name="Address" value="<?php echo isset($row['Address']) ? $row['Address'] : ''; ?>">
-            </div>
-        </div><br><br>
-
-        <div class="row">
-            <legend class="col-form-label col-sm-2 pt-0">Telephone number:</legend>
-            <div class="col-auto">
-                <input type="text" class="form-control" name="Mobile" value="<?php echo isset($row['Mobile']) ? $row['Mobile'] : ''; ?>">
-            </div>
-        </div><br><br>
-
-        <div class="row">
-            <legend class="col-form-label col-sm-2 pt-0">NIC number:</legend>
-            <div class="col-auto">
-                <input type="text" class="form-control" name="NIC" value="<?php echo isset($row['NIC']) ? $row['NIC'] : ''; ?>">
-            </div>
-        </div><br><br>
-
-        <div class="row">
-            <legend class="col-form-label col-sm-2 pt-0">Account Number:</legend>
-            <div class="col">
-                <input type="text" class="form-control" aria-label="Account Number" name="Acc_No" value="<?php echo isset($row['Acc_No']) ? $row['Acc_No'] : ''; ?>">
-            </div>
-            <div class="col">
-                <select class="form-select"  name="Bank_Name" aria-label="Bank Selection">
-                    <?php
-                    $BankDetails = mysqli_query($conn," Select * from bankdetails");
-                    while($c = mysqli_fetch_array($BankDetails)){
-                    ?>
-                    <option value="<?php echo $c['Bank_ID'] ?>" <?php if(isset($row['Bank_Name']) && $c['Bank_Name'] == $row['Bank_Name']) echo 'selected'; ?>>
-                        <?php echo $c['Bank_Name']?>
-                    </option>
-                    <?php } ?>
-                </select>
-            </div>
-        </div><br><br>
-
-        <div class="row">
-            <legend class="col-form-label col-sm-2 pt-0">Payment Method:</legend>
-            <div class="col-auto">
-                <select class="form-select" name="Pay_method" aria-label="payment selection" >
-                    <?php
-                    $PayMethod = mysqli_query($conn,"Select * from paymethod");
-                    while($cc = mysqli_fetch_array($PayMethod)){
-                    ?>
-                    <option value="<?php echo $cc['Pay_ID'] ?>" <?php if(isset($row['Pay_method']) && $cc['Pay_method'] == $row['Pay_method']) echo 'selected'; ?>>
-                        <?php echo $cc['Pay_method']?>
-                    </option>
-                    <?php }?>
-                </select>
-            </div>
-        </div><br><br>
-
-        <div class="row">
-            <legend class="col-form-label col-sm-2 pt-0">Working Place:</legend>
-            <div class="col-auto">
-                <select class="form-select"  name="Work_name" aria-label="work Selection" >
-                    <?php
-                    $WorkPlace = mysqli_query($conn,"Select * from workplace");
-                    while($cc = mysqli_fetch_array($WorkPlace)){
-                    ?>
-                    <option value="<?php echo $cc['work_ID'] ?>" <?php if(isset($row['Work_name']) && $cc['Work_name'] == $row['Work_name']) echo 'selected'; ?>>
-                        <?php echo $cc['Work_name']?>
-                    </option>
-                    <?php }?>
-                </select>
-            </div>
-        </div><br><br>
-
-        <div>
-            <button type="submit" class="btn btn-success" style="color:black;" name="update" >Update</button>
-            <a href="index.php" class="btn btn-danger" style="color:black;">Cancel</a>
+            </form>
         </div>
-    </form>
+    </div>        
 </section>
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js"

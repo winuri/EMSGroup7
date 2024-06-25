@@ -3,7 +3,7 @@ include('ConnectionModel.php');
 include('Header.php');
 ?>
 
-section>
+<section>
     <div class= main>
         <div class="container">   
             <?php

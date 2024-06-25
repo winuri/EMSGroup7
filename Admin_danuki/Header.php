@@ -78,7 +78,7 @@
                         </a>
                         <ul id="auth" class="sidebar-dropdown list-unstyled collapse" data-bs-parent="#sidebar">
                             <li class="sidebar-item">
-                                <a href="#" class="sidebar-link">View Salary Details</a>
+                                <a href="Salary_view.php" class="sidebar-link">View Salary Details</a>
                             </li>
                         </ul>
                     </li>
