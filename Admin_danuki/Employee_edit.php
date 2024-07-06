@@ -8,13 +8,12 @@ $EMP_ID = isset($_GET['id'])? $_GET['id'] : null;
 if($EMP_ID !== null){
     // Fetch employee details based on EMP_ID
     $query = "SELECT e.Member_No, e.F_name, e.L_name, e.DOB, e.Gender, e.Address, e.Mobile, e.NIC,
-    p.Position_name, w.Work_name, pay.Pay_method, ad.Acc_No, bd.Bank_Name, e.EMP_ID
+    p.Position_name, pay.Pay_method, ad.Acc_No, bd.Bank_Name, e.EMP_ID
     FROM employee AS e
     LEFT JOIN accountdetails AS ad ON e.EMP_ID = ad.EMP_ID
     LEFT JOIN bankdetails AS bd ON ad.bank_id = bd.bank_id
     LEFT JOIN positions AS p ON e.Position_ID = p.Position_ID
     LEFT JOIN paymethod AS pay ON e.Pay_ID = pay.Pay_ID
-    LEFT JOIN workplace AS w ON e.work_ID = w.work_ID
     WHERE e.EMP_ID = $EMP_ID";
 
 
@@ -42,7 +41,6 @@ if(isset($_POST['update'])){
     $Mobile = $_POST['Mobile'];
     $NIC = $_POST['NIC'];
     $Position_name = $_POST['Position_name'];
-    $Work_name = $_POST['Work_name'];
     $Pay_method = $_POST['Pay_method'];
     $Acc_No = $_POST['Acc_No'];
     $Bank_id = $_POST['Bank_Name'];
@@ -58,7 +56,6 @@ if(isset($_POST['update'])){
     `Mobile`='$Mobile', 
     `Position_ID`='$Position_name',
     `Pay_ID`='$Pay_method',
-    `work_ID`='$Work_name',
     `NIC`='$NIC'
     WHERE `EMP_ID`='$EMP_ID'";
 
@@ -200,22 +197,6 @@ if(isset($_POST['update'])){
                             ?>
                             <option value="<?php echo $cc['Pay_ID'] ?>" <?php if(isset($row['Pay_method']) && $cc['Pay_method'] == $row['Pay_method']) echo 'selected'; ?>>
                                 <?php echo $cc['Pay_method']?>
-                            </option>
-                            <?php }?>
-                        </select>
-                    </div>
-                </div><br><br>
-
-                <div class="row">
-                    <legend class="col-form-label col-sm-2 pt-0">Working Place:</legend>
-                    <div class="col-auto">
-                        <select class="form-select"  name="Work_name" aria-label="work Selection" >
-                            <?php
-                            $WorkPlace = mysqli_query($conn,"Select * from workplace");
-                            while($cc = mysqli_fetch_array($WorkPlace)){
-                            ?>
-                            <option value="<?php echo $cc['work_ID'] ?>" <?php if(isset($row['Work_name']) && $cc['Work_name'] == $row['Work_name']) echo 'selected'; ?>>
-                                <?php echo $cc['Work_name']?>
                             </option>
                             <?php }?>
                         </select>

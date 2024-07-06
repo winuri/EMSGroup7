@@ -16,33 +16,52 @@
         <div class="box form-box">
         
             <?php
-             // Include connection 
-             include('ConnectionModel.php');
+            include('ConnectionModel.php');
+                // Check if the form is submitted
+                if ($_SERVER["REQUEST_METHOD"] == "POST") {
+                    // Get the input values
+                    $input_username = $_POST["username"];
+                    $input_password = $_POST["password"];
 
-             // Check if form is submitted
-             if(isset($_POST['submit'])){
-                 // Retrieve username and password from form
-                 $username = $_POST['username'];
-                 $password = $_POST['password'];
+                    // Prepare and bind
+                    $stmt = $conn->prepare("SELECT password FROM user WHERE username = ?");
+                    if ($stmt === false) {
+                        die("Prepare failed: " . $conn->error);
+                    }
 
-                 // Query to check if the username and password match for emp_id=19
-                 $query = "SELECT * FROM user WHERE EMP_ID = 19 AND username = '$username' AND password = '$password'";
-                 $result = mysqli_query($conn, $query);
+                    $stmt->bind_param("s", $input_username);
 
-                 // Check if a row is returned
-                 if(mysqli_num_rows($result) === 1) {
-                     // Redirect to admin dashboard
-                     header('Location: Home.php');
-                     exit();
-                 } else {
-                     // Display error message if credentials are incorrect
-                     echo '<p style="color: red;">Invalid username or password</p>';
-                 }
-             }
-              
-                
+                    // Execute the statement
+                    if (!$stmt->execute()) {
+                        die("Execute failed: " . $stmt->error);
+                    }
+
+                    // Bind the result to a variable
+                    $stmt->bind_result($stored_password);
+
+                    // Fetch the result
+                    if ($stmt->fetch()) {
+                        // Check if the provided password matches the stored password
+                        if ($input_password == $stored_password) { // For secure passwords, use password_verify
+                            // Redirect to home.php upon successful login
+                            header("Location: home.php");
+                            exit();
+                        } else {
+                            echo "<p>Incorrect password.</p>";
+                        }
+                    } else {
+                        echo "<p>Username not found.</p>";
+                    }
+
+                    // Close the statement
+                    $stmt->close();
+                }
+
+                // Close the connection
+                $conn->close();
+
             ?>
-        <header>Login</header>
+        <header>Log In</header>
             <form action="" method="post">
                 <div class="field input">
                     <label for="username">Username</label>
@@ -55,9 +74,10 @@
                 </div>
 
                 <div class="field">
-                    
                     <input type="submit" class="btn" name="submit" value="Login" required>
                 </div>
+
+                
                
             </form>
         </div>

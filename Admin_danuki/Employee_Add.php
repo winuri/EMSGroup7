@@ -16,11 +16,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $NIC = $_POST['NIC'];
         $accountNumber = $_POST['accountNumber'];
         $bankSelect = $_POST['bankSelect'];
+        $inputBranch = $_POST['inputBranch'];
         $position = $_POST['position'];
         $paymethod = $_POST['paymethod'];
-        $workSelect = $_POST['workSelect'];
 
-        //check member number
+        // Check member number
         $check_stmt = $conn->prepare("SELECT COUNT(*) FROM Employee WHERE Member_No = ?");
         $check_stmt->bind_param("s", $memNo);
         $check_stmt->execute();
@@ -32,10 +32,34 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             throw new Exception("Error: Member number already exists.");
         }
 
+        // Check NIC
+        $check_nic_stmt = $conn->prepare("SELECT COUNT(*) FROM Employee WHERE NIC = ?");
+        $check_nic_stmt->bind_param("s", $NIC);
+        $check_nic_stmt->execute();
+        $check_nic_stmt->bind_result($nic_count);
+        $check_nic_stmt->fetch();
+        $check_nic_stmt->close();
+
+        if ($nic_count > 0) {
+            throw new Exception("Error: NIC already exists.");
+        }
+
+        // Check mobile number
+        $check_mobile_stmt = $conn->prepare("SELECT COUNT(*) FROM Employee WHERE Mobile = ?");
+        $check_mobile_stmt->bind_param("s", $telephone);
+        $check_mobile_stmt->execute();
+        $check_mobile_stmt->bind_result($mobile_count);
+        $check_mobile_stmt->fetch();
+        $check_mobile_stmt->close();
+
+        if ($mobile_count > 0) {
+            throw new Exception("Error: Mobile number already exists.");
+        }
+
         // Insert data into the employee table
-        $stmt = $conn->prepare("INSERT INTO Employee (Member_No, F_name, L_name, NIC, Mobile, Gender, Address, DOB, Position_ID, work_ID, Pay_ID, Bank_ID) 
-                                VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
-        $stmt->bind_param("ssssssssiiii", $memNo, $fname, $lname, $NIC, $telephone, $gender, $address, $dob, $position, $workSelect, $paymethod, $bankSelect);
+        $stmt = $conn->prepare("INSERT INTO Employee (Member_No, F_name, L_name, NIC, Mobile, Gender, Address, DOB, Position_ID, Pay_ID, Bank_ID) 
+                                VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
+        $stmt->bind_param("sssssssssii", $memNo, $fname, $lname, $NIC, $telephone, $gender, $address, $dob, $position, $paymethod, $bankSelect);
 
         if (!$stmt->execute()) {
             throw new Exception("Error inserting employee record: " . $stmt->error);
@@ -44,8 +68,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $employee_id = $conn->insert_id; // Get the ID of the newly inserted employee
 
         // Insert data into the accountdetails table
-        $stmt2 = $conn->prepare("INSERT INTO AccountDetails (Acc_No, Bank_ID, EMP_ID) VALUES (?, ?, ?)");
-        $stmt2->bind_param("sii", $accountNumber, $bankSelect, $employee_id);
+        $stmt2 = $conn->prepare("INSERT INTO AccountDetails (Acc_No, Branch, Bank_ID, EMP_ID) VALUES (?, ?, ?, ?)");
+        $stmt2->bind_param("ssii", $accountNumber, $inputBranch, $bankSelect, $employee_id);
 
         if (!$stmt2->execute()) {
             throw new Exception("Error inserting account details: " . $stmt2->error);
@@ -171,6 +195,13 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 </div><br><br>
 
                 <div class="row">
+                    <legend class="col-form-label col-sm-2 pt-0">Bank branch:<span class="required">*</span></legend>
+                    <div class="col">
+                        <input type="text" class="form-control" name="inputBranch" id="inputBranch" placeholder="" required>
+                    </div>
+                </div><br><br>
+
+                <div class="row">
                     <legend class="col-form-label col-sm-2 pt-0">Payment Method:<span class="required">*</span></legend>
                     <div class="col-auto">
                         <select class="form-select" id="paymethod" name="paymethod" aria-label="payment selection" required>
@@ -179,21 +210,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                             $PayMethod = mysqli_query($conn, "SELECT * FROM PayMethod");
                             while ($cc = mysqli_fetch_array($PayMethod)) {
                                 echo "<option value=\"{$cc['Pay_ID']}\">{$cc['Pay_method']}</option>";
-                            }
-                            ?>
-                        </select>
-                    </div>
-                </div><br><br>
-
-                <div class="row">
-                    <legend class="col-form-label col-sm-2 pt-0">Working Place:<span class="required">*</span></legend>
-                    <div class="col-auto">
-                        <select class="form-select" id="workSelect" name="workSelect" aria-label="work Selection" required>
-                            <option value="">Select a workplace</option>
-                            <?php
-                            $WorkPlace = mysqli_query($conn, "SELECT * FROM workplace");
-                            while ($cc = mysqli_fetch_array($WorkPlace)) {
-                                echo "<option value=\"{$cc['work_ID']}\">{$cc['Work_name']}</option>";
                             }
                             ?>
                         </select>
@@ -226,8 +242,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             "accountNumber",
             "position",
             "bankSelect",
-            "paymethod",
-            "workSelect"
+            "paymethod"
         ];
 
         var isValid = true;
@@ -254,9 +269,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         }
 
         var NIC = document.getElementById("NIC").value;
-        if (!/^\d{9}(V|\d{3})$/.test(NIC)) {
+        if (!/^\d{9}[Vv]|\d{12}$/.test(NIC)) {
             isValid = false;
-            errorMessage += "- NIC should be either 12 numbers or 9 numbers followed by the letter 'V'.\n";
+            errorMessage += "- NIC should be either 9 numbers followed by the letter 'V' or 'v', or 12 numbers only.\n";
         }
 
         if (!isValid) {

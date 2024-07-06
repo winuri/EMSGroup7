@@ -53,6 +53,9 @@
                             <li class="sidebar-item">
                                 <a href="Employee_view.php" class="sidebar-link">View Employees</a>
                             </li>
+                            <li class="sidebar-item">
+                                <a href="Work_Assign.php" class="sidebar-link">Assign Employees</a>
+                            </li>
                         </ul>
                     </li>
                     <li class="sidebar-item">
@@ -120,21 +123,18 @@
             </aside>
 
             <div class="main--content">
-                <div class="header--wrapper">
-                    <div class="header--title">
-                    
-                        <h2>Dashboard</h2>
-                    </div>
-                    <div class="user--info">
-                        <div class="search--box">
-                        <i class="lni lni-search"></i>
-                        <input type="text" placeholder="Search"/>
-                        </div>
-                        <img src="img.png" alt=""/>
-                    </div>    
+            <div class="header--wrapper">
+                <div class="header--title d-flex align-items-center">
+                    <img src="logo.jpg" alt="Logo" class="mr-3" style="height: 40px;">
+                    <h2>Dashboard</h2>
                 </div>
-                <?php
-                    if(!empty($success)){
-                        print $success;
-                    }
-                ?>
+                <div class="user--info">
+                    <img src="img.png" alt="User Image"/>
+                </div>
+            </div>
+            <?php
+                if (!empty($success)) {
+                    print $success;
+                }
+            ?>
+        

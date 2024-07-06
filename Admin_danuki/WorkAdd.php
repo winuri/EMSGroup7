@@ -8,13 +8,14 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         // Fetch data from the form
         $Work_name = $_POST['Work_name'];
         $Work_Address = $_POST['Work_Address'];
-        $Owner_name = $_POST['Owner_name'];
-        $Owner_mobile = $_POST['Owner_mobile'];
+        $No_of_workers = $_POST['No_of_workers'];
+        $Person_in_charge_name = $_POST['Person_in_charge_name'];
+        $Person_in_charge_telephone = $_POST['Person_in_charge_telephone'];
 
         // Insert data into the Workplace table
-        $stmt = $conn->prepare("INSERT INTO workplace (Work_Address, Work_name, Owner_name, Owner_mobile)
-                                VALUES (?, ?, ?, ?)");
-        $stmt->bind_param("ssss", $Work_Address, $Work_name, $Owner_name, $Owner_mobile);
+        $stmt = $conn->prepare("INSERT INTO workplace (Work_Address, Work_name, No_of_workers, Person_in_charge_name, Person_in_charge_telephone)
+                                VALUES (?, ?, ?, ?, ?)");
+        $stmt->bind_param("sssss", $Work_Address, $Work_name, $No_of_workers, $Person_in_charge_name, $Person_in_charge_telephone);
 
         if ($stmt->execute()) {
             $success = '<div class="alert alert-success" role="alert">New record created successfully</div>';
@@ -52,16 +53,23 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 </div><br><br>
 
                 <div class="row">
-                    <legend class="col-form-label col-sm-2 pt-0"> Owner/Supervisor Name: <span class="required">*</span></legend>
-                    <div class="col">
-                        <input type="text" class="form-control" name="Owner_name" id="Owner_name" placeholder="" required>
+                    <legend class="col-form-label col-sm-2 pt-0"> No. of workers: <span class="required">*</span> </legend>
+                    <div class="col-auto">
+                        <input type="text" class="form-control" name="No_of_workers" id="No_of_workers"  required>
                     </div>
                 </div><br><br>
 
                 <div class="row">
-                    <legend class="col-form-label col-sm-2 pt-0">Owner/Supervisor Telephone number:<span class="required">*</span></legend>
+                    <legend class="col-form-label col-sm-2 pt-0"> Name of person in-charge: <span class="required">*</span></legend>
+                    <div class="col">
+                        <input type="text" class="form-control" name="Person_in_charge_name" id="Person_in_charge_name" placeholder="" required>
+                    </div>
+                </div><br><br>
+
+                <div class="row">
+                    <legend class="col-form-label col-sm-2 pt-0">Telephone number of person in-charge:<span class="required">*</span></legend>
                     <div class="col-auto">
-                        <input type="text" class="form-control" name="Owner_mobile" id="Owner_mobile" placeholder="0123456789" required>
+                        <input type="text" class="form-control" name="Person_in_charge_telephone" id="Person_in_charge_telephone" placeholder="0123456789" required>
                         <span id="error-owner-mobile" class="text-danger"></span>
                     </div>
                 </div><br><br>
@@ -83,14 +91,14 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 document.getElementById('workplace-form').addEventListener('submit', function(event) {
     let errors = [];
 
-    // Validate Owner/Supervisor Telephone number
-    let ownerMobile = document.getElementById('Owner_mobile').value.trim();
+    // Validate Person in-charge Telephone number
+    let ownerMobile = document.getElementById('Person_in_charge_telephone').value.trim();
     if (ownerMobile === '') {
-        errors.push('Owner/Supervisor Telephone number is required');
-        document.getElementById('error-owner-mobile').textContent = 'Owner/Supervisor Telephone number is required';
+        errors.push('Person in-charge Telephone number is required');
+        document.getElementById('error-owner-mobile').textContent = 'Person in-charge Telephone number is required';
     } else if (!/^\d{10}$/.test(ownerMobile)) {
-        errors.push('Owner/Supervisor Telephone number should be 10 digits');
-        document.getElementById('error-owner-mobile').textContent = 'Owner/Supervisor Telephone number should be 10 digits';
+        errors.push('Person in-charge Telephone number should be 10 digits');
+        document.getElementById('error-owner-mobile').textContent = 'Person in-charge Telephone number should be 10 digits';
     } else {
         document.getElementById('error-owner-mobile').textContent = '';
     }

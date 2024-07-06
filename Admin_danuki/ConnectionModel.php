@@ -7,7 +7,7 @@ error_reporting(E_ALL);
 $servername = "localhost";
 $username = "root";
 $password = "Danuki@123";
-$dbname = "emsdatabase_final";
+$dbname = "final_database";
 
 // Create connection
 $conn = new mysqli($servername, $username, $password,$dbname);

@@ -29,28 +29,30 @@ if (isset($_POST['update'])) {
 
     $Work_name = $_POST['Work_name'];
     $Work_Address = $_POST['Work_Address'];
-    $Owner_name = $_POST['Owner_name'];
-    $Owner_mobile = $_POST['Owner_mobile'];
+    $No_of_workers = $_POST['No_of_workers'];
+    $Person_in_charge_name = $_POST['Person_in_charge_name'];
+    $Person_in_charge_telephone = $_POST['Person_in_charge_telephone'];
 
     // Update query
-    $query = "UPDATE `workplace` SET `Work_name` = '$Work_name',
-    `Work_Address` = '$Work_Address', 
-    `Owner_name` = '$Owner_name',
-    `Owner_mobile` = '$Owner_mobile'
-    WHERE `work_ID`= '$Newwork_ID' ";
+    $query = "UPDATE `workplace` SET 
+        `Work_name` = '$Work_name',
+        `Work_Address` = '$Work_Address', 
+        `No_of_workers` = '$No_of_workers',
+        `Person_in_charge_name` = '$Person_in_charge_name',
+        `Person_in_charge_telephone` = '$Person_in_charge_telephone'
+        WHERE `work_ID`= '$Newwork_ID'";
 
     $result = mysqli_query($conn, $query);
 
     if (!$result) {
-        die("query failed" . mysqli_error($conn));
+        die("Query failed: " . mysqli_error($conn));
     }
-        ?>
-        <script>
-            window.location.href = "Workview.php";
-        </script>
-        <?php 
-        exit();
-      
+    ?>
+    <script>
+        window.location.href = "Workview.php";
+    </script>
+    <?php 
+    exit();
 }
 ?>
 
@@ -71,30 +73,37 @@ if (isset($_POST['update'])) {
                 <form action="Workedit.php?Newwork_ID=<?php echo $work_ID; ?>" method="post">
                     <input type="hidden" name="work_ID" value="<?php echo $work_ID; ?>">
                     <div class="row">
-                        <legend class="col-form-label col-sm-2 pt-0"> Workplace Name: </legend>
+                        <legend class="col-form-label col-sm-2 pt-0">Workplace Name:</legend>
                         <div class="col">
                             <input type="text" class="form-control" name="Work_name" value="<?php echo $row['Work_name']?>">
                         </div>
                     </div><br><br>
 
                     <div class="row">
-                        <legend class="col-form-label col-sm-2 pt-0"> Workplace Address: </legend>
+                        <legend class="col-form-label col-sm-2 pt-0">Workplace Address:</legend>
                         <div class="col">
                             <input type="text" class="form-control" name="Work_Address" value="<?php echo $row['Work_Address']?>">
                         </div>
                     </div><br><br>
 
                     <div class="row">
-                        <legend class="col-form-label col-sm-2 pt-0"> Owner/Supervisor Name: </legend>
+                        <legend class="col-form-label col-sm-2 pt-0">Number of Workers:</legend>
                         <div class="col">
-                            <input type="text" class="form-control" name="Owner_name" value="<?php echo $row['Owner_name']?>" >
+                            <input type="text" class="form-control" name="No_of_workers" value="<?php echo $row['No_of_workers']?>" >
                         </div>
                     </div><br><br>
 
                     <div class="row">
-                        <legend class="col-form-label col-sm-2 pt-0">Owner/Supervisor Telephone number:</legend>
+                        <legend class="col-form-label col-sm-2 pt-0">Person in Charge Name:</legend>
+                        <div class="col">
+                            <input type="text" class="form-control" name="Person_in_charge_name" value="<?php echo $row['Person_in_charge_name']?>" >
+                        </div>
+                    </div><br><br>
+
+                    <div class="row">
+                        <legend class="col-form-label col-sm-2 pt-0">Person in Charge Telephone:</legend>
                         <div class="col-auto">
-                            <input type="text" class="form-control" name="Owner_mobile"  value="<?php echo $row['Owner_mobile']?>">
+                            <input type="text" class="form-control" name="Person_in_charge_telephone"  value="<?php echo $row['Person_in_charge_telephone']?>">
                         </div>
                     </div><br><br>
 
