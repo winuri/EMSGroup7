@@ -3,8 +3,8 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1:3306
--- Generation Time: Jun 10, 2024 at 01:24 AM
--- Server version: 5.7.36
+-- Generation Time: Jul 06, 2024 at 12:45 PM
+-- Server version: 8.0.30
 -- PHP Version: 7.4.26
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
@@ -18,7 +18,7 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Database: `emsdatabase`
+-- Database: `emsdatabase_final`
 --
 
 -- --------------------------------------------------------
@@ -29,29 +29,33 @@ SET time_zone = "+00:00";
 
 DROP TABLE IF EXISTS `accountdetails`;
 CREATE TABLE IF NOT EXISTS `accountdetails` (
-  `Acc_ID` int(11) NOT NULL AUTO_INCREMENT,
+  `Acc_ID` int NOT NULL AUTO_INCREMENT,
   `Acc_No` decimal(20,0) DEFAULT NULL,
-  `Bank_ID` int(11) DEFAULT NULL,
-  `EMP_ID` int(11) DEFAULT NULL,
+  `Branch` varchar(100) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `Bank_ID` int DEFAULT NULL,
+  `EMP_ID` int DEFAULT NULL,
   PRIMARY KEY (`Acc_ID`),
   KEY `EMP_ID` (`EMP_ID`),
   KEY `Bank_ID` (`Bank_ID`)
-) ENGINE=MyISAM AUTO_INCREMENT=10 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=MyISAM AUTO_INCREMENT=22 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Dumping data for table `accountdetails`
 --
 
-INSERT INTO `accountdetails` (`Acc_ID`, `Acc_No`, `Bank_ID`, `EMP_ID`) VALUES
-(1, '201200110017666', NULL, 1),
-(2, '207200165900279', NULL, 2),
-(3, '2620012569845', 1, NULL),
-(4, '8090002486', 14, NULL),
-(5, '2678954621', 14, NULL),
-(6, '2678954621', 31, NULL),
-(7, '8080006358', NULL, 9),
-(8, '8080006359', 10, 10),
-(9, '262000536985', 27, 11);
+INSERT INTO `accountdetails` (`Acc_ID`, `Acc_No`, `Branch`, `Bank_ID`, `EMP_ID`) VALUES
+(1, '201200110017666', NULL, 1, 1),
+(2, '207200165900279', NULL, 1, 2),
+(3, '2620012569845', NULL, 1, NULL),
+(4, '8090002486', NULL, 14, NULL),
+(5, '2678954621', NULL, 14, NULL),
+(6, '2678954621', NULL, 31, NULL),
+(7, '8080006357', NULL, 1, 9),
+(8, '8080006359', NULL, 10, 10),
+(9, '262000536985', NULL, 27, 11),
+(10, '262000568456', NULL, 27, 20),
+(11, '2620025689', NULL, 27, 21),
+(19, '26200345632', 'Anuradhapura', 27, 30);
 
 -- --------------------------------------------------------
 
@@ -61,14 +65,14 @@ INSERT INTO `accountdetails` (`Acc_ID`, `Acc_No`, `Bank_ID`, `EMP_ID`) VALUES
 
 DROP TABLE IF EXISTS `attendance`;
 CREATE TABLE IF NOT EXISTS `attendance` (
-  `A_ID` int(11) NOT NULL,
+  `A_ID` int NOT NULL,
   `Date` date DEFAULT NULL,
-  `Name` varchar(50) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `Name` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `Arrival_time` time DEFAULT NULL,
   `Leave_time` time DEFAULT NULL,
-  `report_ID` int(11) DEFAULT NULL,
-  `status` varchar(10) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `EMP_ID` int(11) DEFAULT NULL,
+  `report_ID` int DEFAULT NULL,
+  `status` varchar(10) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `EMP_ID` int DEFAULT NULL,
   PRIMARY KEY (`A_ID`),
   KEY `report_ID` (`report_ID`),
   KEY `EMP_ID` (`EMP_ID`)
@@ -92,8 +96,8 @@ INSERT INTO `attendance` (`A_ID`, `Date`, `Name`, `Arrival_time`, `Leave_time`, 
 
 DROP TABLE IF EXISTS `bankdetails`;
 CREATE TABLE IF NOT EXISTS `bankdetails` (
-  `Bank_ID` int(11) NOT NULL AUTO_INCREMENT,
-  `Bank_Name` varchar(50) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `Bank_ID` int NOT NULL AUTO_INCREMENT,
+  `Bank_Name` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   PRIMARY KEY (`Bank_ID`)
 ) ENGINE=MyISAM AUTO_INCREMENT=37 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
@@ -147,39 +151,42 @@ INSERT INTO `bankdetails` (`Bank_ID`, `Bank_Name`) VALUES
 
 DROP TABLE IF EXISTS `employee`;
 CREATE TABLE IF NOT EXISTS `employee` (
-  `EMP_ID` int(11) NOT NULL AUTO_INCREMENT,
-  `Member_No` int(11) NOT NULL,
-  `F_name` varchar(20) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `L_name` varchar(20) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `NIC` varchar(20) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `Mobile` int(11) DEFAULT NULL,
-  `Gender` varchar(10) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `Address` varchar(100) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `EMP_ID` int NOT NULL AUTO_INCREMENT,
+  `Member_No` int NOT NULL,
+  `F_name` varchar(20) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `L_name` varchar(20) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `NIC` varchar(20) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `Mobile` int DEFAULT NULL,
+  `Gender` varchar(10) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `Address` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `DOB` date DEFAULT NULL,
-  `Position_ID` int(11) DEFAULT NULL,
-  `work_ID` int(11) DEFAULT NULL,
-  `Pay_ID` int(11) DEFAULT NULL,
-  `Bank_ID` int(11) DEFAULT NULL,
+  `Position_ID` int DEFAULT NULL,
+  `work_ID` int DEFAULT NULL,
+  `Pay_ID` int DEFAULT NULL,
+  `Bank_ID` int DEFAULT NULL,
   PRIMARY KEY (`EMP_ID`),
   KEY `Pay_ID` (`Pay_ID`),
   KEY `Position_ID` (`Position_ID`),
   KEY `work_ID` (`work_ID`),
   KEY `Bank_ID` (`Bank_ID`)
-) ENGINE=MyISAM AUTO_INCREMENT=20 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=MyISAM AUTO_INCREMENT=33 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Dumping data for table `employee`
 --
 
 INSERT INTO `employee` (`EMP_ID`, `Member_No`, `F_name`, `L_name`, `NIC`, `Mobile`, `Gender`, `Address`, `DOB`, `Position_ID`, `work_ID`, `Pay_ID`, `Bank_ID`) VALUES
-(1, 201, 'K.G.H', 'Ramyalatha', '746211520V', 76359658, 'Female', 'Mathale', '1974-02-02', 3, NULL, NULL, NULL),
-(2, 93, 'B.D', 'Abekon Banda', '196723501570', 712365698, 'Male', 'Kurunegala', '1967-03-03', 2, NULL, NULL, NULL),
+(1, 201, 'K.G.H', 'Ramyalatha', '746211520V', 76359659, 'Female', 'Mathale', '1974-02-02', 3, 1, 1, NULL),
+(2, 93, 'B.D', 'Abekon Banda', '196723501570', 712365699, 'Male', 'Kurunegala', '1967-03-03', 2, 6, 1, NULL),
 (7, 205, 'Kamalawathi', 'Piris', '959542681V', 778542361, 'Male', 'Kurunegala', '1995-12-12', 1, 8, 2, NULL),
-(9, 320, 'Wimal', 'K.D.P', '199825631254', 776934186, 'Male', 'Trincomalee', '1998-01-15', 2, NULL, NULL, NULL),
+(9, 320, 'Wimal', 'K.D.P', '199825631254', 776934187, 'Male', 'Trincomalee', '1998-01-15', 2, 8, 1, NULL),
 (10, 321, 'Wimala', 'K.D.H.U.P', '199825631253', 774564522, 'Female', 'Trincomalee', '1999-05-07', 1, 8, 2, 10),
 (11, 300, 'Anoma', 'Pathirana', '636082923V', 772365448, 'Female', 'Trincomalee', '1963-05-12', 2, 8, 2, 27),
 (18, 111, 'kamala', 'Perera', '622565238V', 715695363, 'Female', 'Kurunegala', '1962-12-12', 1, 6, 1, 36),
-(19, 1, 'S.E.', 'Himali', '742563472V', 772646654, 'Female', '37 1/2, Mile post, Anuradhapura', '1974-09-04', 1, 1, 3, 36);
+(19, 1, 'S.E.', 'Himali', '742563472V', 772646654, 'Female', '37 1/2, Mile post, Anuradhapura', '1974-09-04', 4, 1, 3, 36),
+(20, 298, 'Sisira ', 'Kumara', '616082923V', 713490919, 'Male', 'Kurunegala', '1961-09-03', 1, 6, 2, 27),
+(21, 222, 'Anula', 'piris', '613686254V', 713496256, 'Female', 'Anuradhapura', '1996-02-04', 2, 5, 2, 27),
+(30, 210, 'Danuki', 'amaya', '635695632V', 763696885, 'Male', 'Anuradhapura', '1963-01-02', 2, NULL, 2, 27);
 
 -- --------------------------------------------------------
 
@@ -189,15 +196,15 @@ INSERT INTO `employee` (`EMP_ID`, `Member_No`, `F_name`, `L_name`, `NIC`, `Mobil
 
 DROP TABLE IF EXISTS `emp_leaves`;
 CREATE TABLE IF NOT EXISTS `emp_leaves` (
-  `leave_id` int(11) NOT NULL AUTO_INCREMENT,
-  `EMP_ID` int(11) DEFAULT NULL,
-  `leave_type` varchar(50) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `leave_id` int NOT NULL AUTO_INCREMENT,
+  `EMP_ID` int DEFAULT NULL,
+  `leave_type` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `from_date` date DEFAULT NULL,
   `to_date` date DEFAULT NULL,
-  `leave_duration` enum('Half Day','Full Day') COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `notes` text COLLATE utf8mb4_unicode_ci,
+  `leave_duration` enum('Half Day','Full Day') CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `notes` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci,
   `submission_date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  `Position_id` int(11) DEFAULT NULL,
+  `Position_id` int DEFAULT NULL,
   PRIMARY KEY (`leave_id`),
   KEY `Position_id` (`Position_id`)
 ) ENGINE=MyISAM AUTO_INCREMENT=18 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
@@ -227,25 +234,6 @@ INSERT INTO `emp_leaves` (`leave_id`, `EMP_ID`, `leave_type`, `from_date`, `to_d
 -- Table structure for table `inventory`
 --
 
-DROP TABLE IF EXISTS `inventory`;
-CREATE TABLE IF NOT EXISTS `inventory` (
-  `Tool_ID` varchar(10) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `Tool_name` varchar(100) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `Price` double DEFAULT NULL,
-  `Quantity` int(11) DEFAULT NULL,
-  `purchase_date` date DEFAULT NULL,
-  `report_ID` int(11) DEFAULT NULL,
-  PRIMARY KEY (`Tool_ID`),
-  KEY `report_ID` (`report_ID`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
-
---
--- Dumping data for table `inventory`
---
-
-INSERT INTO `inventory` (`Tool_ID`, `Tool_name`, `Price`, `Quantity`, `purchase_date`, `report_ID`) VALUES
-('T001', 'Surface Cleaning Tools', 1000, 10, '2022-12-13', 1),
-('T002', 'Floor Cleaning Tools', 3000, 7, '2022-11-23', 2);
 
 -- --------------------------------------------------------
 
@@ -255,9 +243,9 @@ INSERT INTO `inventory` (`Tool_ID`, `Tool_name`, `Price`, `Quantity`, `purchase_
 
 DROP TABLE IF EXISTS `leaves`;
 CREATE TABLE IF NOT EXISTS `leaves` (
-  `L_ID` varchar(10) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `description` varchar(1000) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `count` int(11) DEFAULT NULL,
+  `L_ID` varchar(10) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `description` varchar(1000) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `count` int DEFAULT NULL,
   PRIMARY KEY (`L_ID`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
@@ -278,8 +266,8 @@ INSERT INTO `leaves` (`L_ID`, `description`, `count`) VALUES
 
 DROP TABLE IF EXISTS `paymethod`;
 CREATE TABLE IF NOT EXISTS `paymethod` (
-  `Pay_ID` int(11) NOT NULL,
-  `Pay_method` varchar(20) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `Pay_ID` int NOT NULL,
+  `Pay_method` varchar(20) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   PRIMARY KEY (`Pay_ID`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
@@ -300,9 +288,9 @@ INSERT INTO `paymethod` (`Pay_ID`, `Pay_method`) VALUES
 
 DROP TABLE IF EXISTS `payroll`;
 CREATE TABLE IF NOT EXISTS `payroll` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `EMP_ID` int(11) DEFAULT NULL,
-  `total_working_days` int(11) DEFAULT NULL,
+  `id` int NOT NULL AUTO_INCREMENT,
+  `EMP_ID` int DEFAULT NULL,
+  `total_working_days` int DEFAULT NULL,
   `total_deduction` decimal(10,2) DEFAULT NULL,
   `other_earnings` decimal(10,2) DEFAULT NULL,
   `tax_amount` decimal(10,2) DEFAULT NULL,
@@ -329,8 +317,8 @@ INSERT INTO `payroll` (`id`, `EMP_ID`, `total_working_days`, `total_deduction`, 
 
 DROP TABLE IF EXISTS `payrollsheet`;
 CREATE TABLE IF NOT EXISTS `payrollsheet` (
-  `id` int(11) NOT NULL,
-  `title` varchar(250) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `id` int NOT NULL,
+  `title` varchar(250) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
   `from_date` date NOT NULL,
   `to_date` date NOT NULL,
   `create_at` datetime DEFAULT NULL,
@@ -354,8 +342,8 @@ INSERT INTO `payrollsheet` (`id`, `title`, `from_date`, `to_date`, `create_at`, 
 
 DROP TABLE IF EXISTS `positions`;
 CREATE TABLE IF NOT EXISTS `positions` (
-  `Position_ID` int(11) NOT NULL,
-  `Position_name` varchar(50) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `Position_ID` int NOT NULL,
+  `Position_name` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `salary` decimal(10,2) NOT NULL DEFAULT '0.00',
   PRIMARY KEY (`Position_ID`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
@@ -378,8 +366,8 @@ INSERT INTO `positions` (`Position_ID`, `Position_name`, `salary`) VALUES
 
 DROP TABLE IF EXISTS `report`;
 CREATE TABLE IF NOT EXISTS `report` (
-  `report_ID` int(11) NOT NULL,
-  `name` varchar(50) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `report_ID` int NOT NULL,
+  `name` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `issue_date` date DEFAULT NULL,
   PRIMARY KEY (`report_ID`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
@@ -402,10 +390,10 @@ INSERT INTO `report` (`report_ID`, `name`, `issue_date`) VALUES
 
 DROP TABLE IF EXISTS `user`;
 CREATE TABLE IF NOT EXISTS `user` (
-  `user_ID` varchar(20) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `UserName` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `Password` varchar(20) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `EMP_ID` int(11) DEFAULT NULL,
+  `user_ID` varchar(20) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `UserName` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `Password` varchar(20) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `EMP_ID` int DEFAULT NULL,
   PRIMARY KEY (`user_ID`),
   KEY `user_ibfk_1` (`EMP_ID`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
@@ -415,7 +403,7 @@ CREATE TABLE IF NOT EXISTS `user` (
 --
 
 INSERT INTO `user` (`user_ID`, `UserName`, `Password`, `EMP_ID`) VALUES
-('1', 'Admin', 'Admin123', 19),
+('1', 'Admin1', 'Admin1', 19),
 ('', 'wimala11', '456', 9),
 ('2', '1', '1', 11);
 
@@ -427,28 +415,171 @@ INSERT INTO `user` (`user_ID`, `UserName`, `Password`, `EMP_ID`) VALUES
 
 DROP TABLE IF EXISTS `workplace`;
 CREATE TABLE IF NOT EXISTS `workplace` (
-  `work_ID` int(11) NOT NULL,
-  `Work_Address` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `Work_name` varchar(100) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `Owner_name` varchar(100) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `Owner_mobile` int(11) DEFAULT NULL,
+  `work_ID` int NOT NULL AUTO_INCREMENT,
+  `Work_Address` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `Work_name` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `No_of_workers` int NOT NULL,
+  `Person_in_charge_name` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `Person_in_charge_telephone` int DEFAULT NULL,
   PRIMARY KEY (`work_ID`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=MyISAM AUTO_INCREMENT=11 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Dumping data for table `workplace`
 --
 
-INSERT INTO `workplace` (`work_ID`, `Work_Address`, `Work_name`, `Owner_name`, `Owner_mobile`) VALUES
-(1, 'Anuradhapura Town', 'Main Branch', 'H.E.Himali', 713490948),
-(2, 'Main street, Matale', 'Telecom - Mathale', 'K.Siriwardhana', 777885263),
-(4, 'Hospital Road, Mannar', 'CEB - Mannar', NULL, NULL),
-(5, '249 B, Rex Building, Main St, Anuradhapura', 'Toyota - Anuradhapura', NULL, NULL),
-(6, 'Kandy Road, Kurunegala', 'Telecom - Kurunegala', NULL, NULL),
-(7, 'Thisa wewa, Anuradhapura', 'Water board - Thisa wewa', NULL, NULL),
-(8, 'Inner harbour Road, Trincomalee', 'Telecom - Trincomalee', NULL, NULL),
-(9, 'Naddukka, Mannar', 'Thambapavani Wind farm - Mannar', 'K.G.Piris', 715263859);
+INSERT INTO `workplace` (`work_ID`, `Work_Address`, `Work_name`, `No_of_workers`, `Person_in_charge_name`, `Person_in_charge_telephone`) VALUES
+(1, 'Anuradhapura Town', 'Main Branch', 0, 'H.E.Himali', 713490948),
+(2, 'Main street, Matale', 'Telecom - Mathale', 0, 'K.Siriwardhana', 777885263),
+(4, 'Hospital Road, Mannar', 'CEB - Mannar', 0, NULL, NULL),
+(5, '249 B, Rex Building, Main St, Anuradhapura', 'Toyota - Anuradhapura', 0, NULL, NULL),
+(6, 'Kandy Road, Kurunegala', 'Telecom - Kurunegala', 0, NULL, NULL),
+(7, 'Thisa wewa, Anuradhapura', 'Water board - Thisa wewa', 0, NULL, NULL),
+(8, 'Inner harbour Road, Trincomalee', 'Telecom - Trincomalee', 15, 'K.Amala', 715623856),
+(9, 'Naddukka, Mannar', 'Thambapavani Wind farm - Mannar', 0, 'K.G.Piris', 715263859),
+(10, 'Town Road, Anuradhapura', 'Telecom - Anuradhapura', 10, 'A.M.Dayan', 772226445);
 COMMIT;
+
+-----------------Inventory----------------------
+
+
+
+DROP TABLE IF EXISTS `inventory`;
+CREATE TABLE IF NOT EXISTS `inventory` (
+    Tool_ID INT AUTO_INCREMENT PRIMARY KEY,
+    Tool_name VARCHAR(100) DEFAULT NULL,
+    Price DOUBLE DEFAULT NULL,
+    Quantity INT DEFAULT NULL,
+    purchase_date DATE DEFAULT NULL,
+    report_ID INT DEFAULT NULL,
+    KEY `report_ID` (`report_ID`)
+	) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+--
+-- Dumping data for table `inventory`
+--
+
+ALTER TABLE inventory
+ADD deleted_date DATE NULL DEFAULT NULL;
+
+
+INSERT INTO `inventory` (`Tool_name`, `Price`, `Quantity`, `purchase_date`, `report_ID`)
+VALUES 
+('Cair Broom', 1000, 10, '2022-12-13', 1),
+('Plastic Broom', 3000, 7, '2022-11-23', 2),
+('Eakle', 3000, 7, '2022-11-23', 2),
+('Wiper', 3000, 7, '2022-11-23', 2),
+('Hand Brush', 3000, 7, '2022-11-23', 2),
+('Toilet Brush', 3000, 7, '2022-11-23', 2),
+('Duster', 3000, 7, '2022-11-23', 2),
+('Sponge', 3000, 7, '2022-11-23', 2),
+('Hanpic', 3000, 7, '2022-11-23', 2),
+('Air Fresher', 3000, 7, '2022-11-23', 2),
+('Glass Cleaner', 3000, 7, '2022-11-23', 2),
+('Wim Powder', 3000, 7, '2022-11-23', 2),
+('Polish Brown', 3000, 7, '2022-11-23', 2),
+('Wax', 3000, 7, '2022-11-23', 2),
+('Hand gluwas', 3000, 7, '2022-11-23', 2),
+('Glass cleaner wipwe', 3000, 7, '2022-11-23', 2),
+('Brash cutter blead', 3000, 7, '2022-11-23', 2),
+('Teepol', 3000, 7, '2022-11-23', 2),
+('Pherol', 3000, 7, '2022-11-23', 2),
+('Polish Red', 3000, 7, '2022-11-23', 2);
+
+
+
+-----------------------------------------------
+
+
+
+-- Step 1: Create categories table
+drop table categories;
+CREATE TABLE IF NOT EXISTS `categories` (
+  `Category_ID` varchar(20) not NULL,
+  `Category_Name` varchar(50) NOT NULL,
+  PRIMARY KEY (`Category_ID`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+
+
+
+ALTER TABLE `inventory` ADD COLUMN `Category_ID` VARCHAR(255) DEFAULT NULL;
+
+ALTER TABLE `inventory`
+ADD CONSTRAINT `fk_inventory_category`
+FOREIGN KEY (`Category_ID`)
+REFERENCES `categories` (`Category_ID`);
+
+
+
+---------------------------------------
+
+-- Update existing Category_ID column if needed
+
+
+
+-- Step 3: Insert categories into categories table
+INSERT INTO `categories` (`Category_ID`, `Category_Name`) VALUES
+('1','Liquid'),
+('2','Washes'),
+('3','Brooms'),
+('4','Brushes'),
+('5','Cleaners'),
+('6','Polish');
+
+-----------------------------------------
+
+
+-- Step 4: Update inventory table to associate tools with categories
+
+-- Disable safe updates
+SET SQL_SAFE_UPDATES = 0;
+-- Update statements
+UPDATE `inventory` SET `Category_ID` = '4' WHERE `Tool_name` = 'Hand Brush';
+UPDATE `inventory` SET `Category_ID` = '4' WHERE `Tool_name` = 'Toilet Brush';
+UPDATE `inventory` SET `Category_ID` = '3' WHERE `Tool_name` = 'Brash cutter blead';
+UPDATE `inventory` SET `Category_ID` = '5' WHERE `Tool_name` = 'Glass Cleaner';
+UPDATE `inventory` SET `Category_ID` = '5' WHERE `Tool_name` = 'Teepol';
+UPDATE `inventory` SET `Category_ID` = '1' WHERE `Tool_name` = 'Hanpic';
+UPDATE `inventory` SET `Category_ID` = '1' WHERE `Tool_name` = 'Pherol';
+UPDATE `inventory` SET `Category_ID` = '1' WHERE `Tool_name` = 'Air Fresher';
+UPDATE `inventory` SET `Category_ID` = '4' WHERE `Tool_name` = 'Duster';
+UPDATE `inventory` SET `Category_ID` = '4' WHERE `Tool_name` = 'Sponge';
+UPDATE `inventory` SET `Category_ID` = '6' WHERE `Tool_name` = 'Wim Powder';
+UPDATE `inventory` SET `Category_ID` = '6' WHERE `Tool_name` = 'Polish Brown';
+UPDATE `inventory` SET `Category_ID` = '6' WHERE `Tool_name` = 'Wax';
+UPDATE `inventory` SET `Category_ID` = '6' WHERE `Tool_name` = 'Polish Red';
+UPDATE `inventory` SET `Category_ID` = '5' WHERE `Tool_name` = 'Glass cleaner wipwe';
+UPDATE `inventory` SET `Category_ID` = '4' WHERE `Tool_name` = 'Wiper';
+UPDATE `inventory` SET `Category_ID` = '4' WHERE `Tool_name` = 'Hand gluwas';
+UPDATE `inventory` SET `Category_ID` =' 3' WHERE `Tool_name` = 'Plastic Broom';
+UPDATE `inventory` SET `Category_ID` =' 3' WHERE `Tool_name` = 'Cair Broom';
+-- Re-enable safe updates
+SET SQL_SAFE_UPDATES = 1;
+-- Disable safe updates
+SET SQL_SAFE_UPDATES = 0;
+UPDATE `inventory` SET `Category_ID` =' 3' WHERE `Tool_name` = 'Plastic Broom';
+UPDATE `inventory` SET `Category_ID` =' 3' WHERE `Tool_name` = 'Cair Broom';
+-- Re-enable safe updates
+SET SQL_SAFE_UPDATES = 1;
+
+
+
+
+-------------------------
+
+
+CREATE TABLE IF NOT EXISTS saved_reports (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    report_title VARCHAR(255) NOT NULL,
+    report_content TEXT NOT NULL,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+ALTER TABLE saved_reports
+ADD COLUMN saved_datetime DATETIME AFTER report_content;
+
+
+
+
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;

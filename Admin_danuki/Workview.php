@@ -1,6 +1,31 @@
 <?php
 include('ConnectionModel.php');
 include('Header.php');
+
+// Define how many results per page
+$results_per_page = 10;
+
+// Find out the number of results stored in the database
+$query = "SELECT COUNT(*) AS total FROM WorkPlace";
+$result = mysqli_query($conn, $query);
+$row = mysqli_fetch_assoc($result);
+$total_results = $row['total'];
+
+// Determine the total number of pages available
+$total_pages = ceil($total_results / $results_per_page);
+
+// Determine which page number the visitor is currently on
+$page = isset($_GET['page']) ? (int)$_GET['page'] : 1;
+
+// Determine the SQL LIMIT starting number for the results on the displaying page
+$start_limit = ($page - 1) * $results_per_page;
+
+// Fetch the selected results from the database, ordered by work_ID
+$query = "SELECT * FROM WorkPlace ORDER BY work_ID ASC LIMIT $start_limit, $results_per_page";
+$result = mysqli_query($conn, $query);
+if (!$result) {
+    die("Query failed: " . mysqli_error($conn));
+}
 ?>
 
 <section>
@@ -33,13 +58,6 @@ include('Header.php');
                 </thead>
                 <tbody>
                     <?php
-                        // Fetch workplace details from database based on the selected ID
-                        $query = "SELECT * FROM WorkPlace";
-                        $result = mysqli_query($conn, $query);
-                        if (!$result) {
-                            die("Query failed: " . mysqli_error($conn));
-                        }
-
                         // Display fetched data
                         while ($row = mysqli_fetch_assoc($result)) {
                             ?>
@@ -62,9 +80,32 @@ include('Header.php');
                     ?>
                 </tbody> 
             </table>
+            <div class="pagination-container text-center">
+                <?php
+                // Display the pagination
+                for ($i = 1; $i <= $total_pages; $i++) {
+                    $activeClass = ($i == $page) ? 'active' : '';
+                    echo '<a href="workview.php?page=' . $i . '" class="btn btn-success mx-1 ' . $activeClass . '">' . $i . '</a> ';
+                }
+                ?>
+            </div>
         </div>
     </div>
 </section>
+
+<style>
+    .pagination-container {
+        margin-top: 20px;
+    }
+    .pagination-container .btn {
+        min-width: 40px;
+        border-radius: 4px;
+    }
+    .pagination-container .btn.active {
+        background-color: green;
+        color: white;
+    }
+</style>
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-ENjdO4Dr2bkBIFxQpeoTz1HIcje39Wm4jDKdf19U8gI4ddQ3GYNS7NTKfAdVQSZe"

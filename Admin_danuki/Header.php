@@ -69,7 +69,7 @@
                                 <a href="Attendance_View.php" class="sidebar-link">View Attendance</a>
                             </li>
                             <li class="sidebar-item">
-                                <a href="#" class="sidebar-link">View Leave</a>
+                                <a href="Employee_leaves.php" class="sidebar-link">View Leave</a>
                             </li>
                         </ul>
                     </li>

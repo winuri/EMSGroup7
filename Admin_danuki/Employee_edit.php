@@ -93,14 +93,14 @@ if(isset($_POST['update'])){
                 <input type="hidden" name="EMP_ID" value="<?php echo $EMP_ID; ?>">
 
                 <div class="row">
-                    <legend class="col-form-label col-sm-2 pt-0">Member number:</legend>
+                    <legend class="col-form-label col-sm-2 pt-0">Member number:<span class="required">*</span></legend>
                     <div class="col-auto">
                         <input type="text" class="form-control" name="Member_No" value= "<?php echo isset($row['Member_No']) ? $row['Member_No'] : ''; ?>">
                     </div>
                 </div><br><br>
 
                 <div class="row">
-                    <legend class="col-form-label col-sm-2 pt-0">Position:</legend>
+                    <legend class="col-form-label col-sm-2 pt-0">Position:<span class="required">*</span></legend>
                     <div class="col-auto">
                         <select class="form-select"  name="Position_name" aria-label="position selection" >
                             <?php
@@ -117,7 +117,7 @@ if(isset($_POST['update'])){
                 </div><br><br>
 
                 <div class="row">
-                    <legend class="col-form-label col-sm-2 pt-0">Employee Name:</legend>
+                    <legend class="col-form-label col-sm-2 pt-0">Employee Name:<span class="required">*</span></legend>
                     <div class="col">
                         <input type="text" class="form-control" aria-label="First name" name="F_name" value="<?php echo isset($row['F_name']) ? $row['F_name'] : ''; ?>">
                     </div>
@@ -127,14 +127,14 @@ if(isset($_POST['update'])){
                 </div><br><br>
 
                 <div class="row">
-                    <legend class="col-form-label col-sm-2 pt-0">Date Of Birth:</legend>
+                    <legend class="col-form-label col-sm-2 pt-0">Date Of Birth:<span class="required">*</span></legend>
                     <div class="col-auto">
                         <input type="date" class="form-control" name="DOB" value="<?php echo isset($row['DOB']) ? $row['DOB'] : ''; ?>">
                     </div>
                 </div><br><br>
 
                 <fieldset class="row mb-3">
-                    <legend class="col-form-label col-sm-2 pt-0">Gender:</legend>
+                    <legend class="col-form-label col-sm-2 pt-0">Gender:<span class="required">*</span></legend>
                     <div class="col-sm-10">
                         <div class="form-check">
                             <input class="form-check-input" type="radio" name="Gender"  value="Male" <?php if (isset($row['Gender']) && $row['Gender'] == 'Male') echo 'checked' ?>>
@@ -148,28 +148,28 @@ if(isset($_POST['update'])){
                 </fieldset><br>  
 
                 <div class="row">
-                    <legend class="col-form-label col-sm-2 pt-0">Address</legend>
+                    <legend class="col-form-label col-sm-2 pt-0">Address:<span class="required">*</span></legend>
                     <div class="col">
                         <input type="text" class="form-control" name="Address" value="<?php echo isset($row['Address']) ? $row['Address'] : ''; ?>">
                     </div>
                 </div><br><br>
 
                 <div class="row">
-                    <legend class="col-form-label col-sm-2 pt-0">Telephone number:</legend>
+                    <legend class="col-form-label col-sm-2 pt-0">Telephone number:<span class="required">*</span></legend>
                     <div class="col-auto">
                         <input type="text" class="form-control" name="Mobile" value="<?php echo isset($row['Mobile']) ? $row['Mobile'] : ''; ?>">
                     </div>
                 </div><br><br>
 
                 <div class="row">
-                    <legend class="col-form-label col-sm-2 pt-0">NIC number:</legend>
+                    <legend class="col-form-label col-sm-2 pt-0">NIC number:<span class="required">*</span></legend>
                     <div class="col-auto">
                         <input type="text" class="form-control" name="NIC" value="<?php echo isset($row['NIC']) ? $row['NIC'] : ''; ?>">
                     </div>
                 </div><br><br>
 
                 <div class="row">
-                    <legend class="col-form-label col-sm-2 pt-0">Account Number:</legend>
+                    <legend class="col-form-label col-sm-2 pt-0">Account Number:<span class="required">*</span></legend>
                     <div class="col">
                         <input type="text" class="form-control" aria-label="Account Number" name="Acc_No" value="<?php echo isset($row['Acc_No']) ? $row['Acc_No'] : ''; ?>">
                     </div>
@@ -188,7 +188,7 @@ if(isset($_POST['update'])){
                 </div><br><br>
 
                 <div class="row">
-                    <legend class="col-form-label col-sm-2 pt-0">Payment Method:</legend>
+                    <legend class="col-form-label col-sm-2 pt-0">Payment Method:<span class="required">*</span></legend>
                     <div class="col-auto">
                         <select class="form-select" name="Pay_method" aria-label="payment selection" >
                             <?php
@@ -205,7 +205,7 @@ if(isset($_POST['update'])){
 
                 <div>
                     <button type="submit" class="btn btn-success" style="color:black;" name="update" >Update</button>
-                    <a href="index.php" class="btn btn-danger" style="color:black;">Cancel</a>
+                    <a href="Employee_view.php" class="btn btn-danger" style="color:black;">Cancel</a>
                 </div>
             </form>
         </div>

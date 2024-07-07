@@ -73,43 +73,43 @@ if (isset($_POST['update'])) {
                 <form action="Workedit.php?Newwork_ID=<?php echo $work_ID; ?>" method="post">
                     <input type="hidden" name="work_ID" value="<?php echo $work_ID; ?>">
                     <div class="row">
-                        <legend class="col-form-label col-sm-2 pt-0">Workplace Name:</legend>
+                        <legend class="col-form-label col-sm-2 pt-0">Workplace Name:<span class="required">*</span></legend>
                         <div class="col">
                             <input type="text" class="form-control" name="Work_name" value="<?php echo $row['Work_name']?>">
                         </div>
                     </div><br><br>
 
                     <div class="row">
-                        <legend class="col-form-label col-sm-2 pt-0">Workplace Address:</legend>
+                        <legend class="col-form-label col-sm-2 pt-0">Workplace Address:<span class="required">*</span></legend>
                         <div class="col">
                             <input type="text" class="form-control" name="Work_Address" value="<?php echo $row['Work_Address']?>">
                         </div>
                     </div><br><br>
 
                     <div class="row">
-                        <legend class="col-form-label col-sm-2 pt-0">Number of Workers:</legend>
+                        <legend class="col-form-label col-sm-2 pt-0">Number of Workers:<span class="required">*</span></legend>
                         <div class="col">
                             <input type="text" class="form-control" name="No_of_workers" value="<?php echo $row['No_of_workers']?>" >
                         </div>
                     </div><br><br>
 
                     <div class="row">
-                        <legend class="col-form-label col-sm-2 pt-0">Person in Charge Name:</legend>
+                        <legend class="col-form-label col-sm-2 pt-0">Person in Charge Name:<span class="required">*</span></legend>
                         <div class="col">
                             <input type="text" class="form-control" name="Person_in_charge_name" value="<?php echo $row['Person_in_charge_name']?>" >
                         </div>
                     </div><br><br>
 
                     <div class="row">
-                        <legend class="col-form-label col-sm-2 pt-0">Person in Charge Telephone:</legend>
+                        <legend class="col-form-label col-sm-2 pt-0">Person in Charge Telephone:<span class="required">*</span></legend>
                         <div class="col-auto">
                             <input type="text" class="form-control" name="Person_in_charge_telephone"  value="<?php echo $row['Person_in_charge_telephone']?>">
                         </div>
                     </div><br><br>
 
                     <div>
-                        <button type="submit" class="btn btn-success" name="update">Update</button>
-                        <a href="index.php" class="btn btn-danger">Cancel</a>
+                        <button type="submit" class="btn btn-success"style="color:black;" name="update">Update</button>
+                        <a href="Workview.php" class="btn btn-danger" style="color:black;">Cancel</a>
                     </div>
                 </form>
             </div>

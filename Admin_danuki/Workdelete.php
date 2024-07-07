@@ -1,39 +1,33 @@
 <?php
-
 include('ConnectionModel.php');
 
-// Function to delete a row from the workplace table
-function deleteWorkplace($work_ID, $conn) {
-    echo "<script>";
-    echo "var confirmDelete = confirm('Are you sure you want to delete this record?');";
-    echo "if (confirmDelete) {";
-    // Update the work_ID column in the employee table to null for employees assigned to the workplace being deleted
-    $update_employee_sql = "UPDATE employee SET work_ID = NULL WHERE work_ID = $work_ID";
-    if ($conn->query($update_employee_sql) === TRUE) {
-        echo "alert('Employee records updated successfully');";
+if(isset($_GET['id'])) {
+    $work_ID = $_GET['id'];
+
+    // First, remove the work_ID from assigned employees
+    $removeWorkIDQuery = "UPDATE Employee SET work_ID = NULL WHERE work_ID = ?";
+    if ($stmt = mysqli_prepare($conn, $removeWorkIDQuery)) {
+        mysqli_stmt_bind_param($stmt, "i", $work_ID);
+        mysqli_stmt_execute($stmt);
+        mysqli_stmt_close($stmt);
     } else {
-        echo "alert('Error updating employee records: " . $conn->error . "');";
+        die("Failed to prepare query: " . mysqli_error($conn));
     }
 
-    // Delete the row from the workplace table
-    $delete_workplace_sql = "DELETE FROM workplace WHERE work_ID = $work_ID";
-    if ($conn->query($delete_workplace_sql) === TRUE) {
-        echo "alert('Workplace deleted successfully');";
-        echo "window.location.href = 'work_view.php';";
+    // Now, delete the workplace
+    $deleteWorkplaceQuery = "DELETE FROM WorkPlace WHERE work_ID = ?";
+    if ($stmt = mysqli_prepare($conn, $deleteWorkplaceQuery)) {
+        mysqli_stmt_bind_param($stmt, "i", $work_ID);
+        mysqli_stmt_execute($stmt);
+        mysqli_stmt_close($stmt);
+
+        // Redirect with success message
+        header("Location: workview.php?msg=Workplace deleted successfully");
     } else {
-        echo "alert('Error deleting workplace: " . $conn->error . "');";
+        die("Failed to prepare query: " . mysqli_error($conn));
     }
-    echo "} else {";
-    echo "alert('Deletion cancelled');";
-    echo "}";
-    echo "</script>";
+} else {
+    // Redirect with error message if ID is not set
+    header("refresh:2; url=Workview.php");
 }
-
-
-$work_ID_to_delete = 1; 
-deleteWorkplace($work_ID_to_delete, $conn);
-
-
-
-
 ?>
