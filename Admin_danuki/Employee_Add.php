@@ -139,9 +139,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
                 <fieldset class="row mb-3">
                     <legend class="col-form-label col-sm-2 pt-0">Gender:<span class="required">*</span></legend>
-                    <div class="col-sm-10">
+                    <div class="col-auto">
                         <div class="form-check">
-                            <input class="form-check-input" type="radio" name="gridRadios" id="gridRadios1" value="Male" checked>
+                            <input class="form-check-input" type="radio" name="gridRadios" id="gridRadios1" value="Male" required>
                             <label class="form-check-label" for="gridRadios1">
                                 Male
                             </label>
@@ -230,6 +230,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 </style>
 
 <script>
+    document.addEventListener('DOMContentLoaded', function() {
+        // Set the max attribute for the date input to today's date
+        var today = new Date().toISOString().split('T')[0]; // Get today's date in yyyy-mm-dd format
+        document.getElementById('inputDOB').setAttribute('max', today);
+    });
+
     function validateForm() {
         var fields = [
             "memNo",
@@ -269,9 +275,16 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         }
 
         var NIC = document.getElementById("NIC").value;
-        if (!/^\d{9}[Vv]|\d{12}$/.test(NIC)) {
+        if (!/^\d{9}[Vv]$|^\d{12}$/.test(NIC)) {
             isValid = false;
             errorMessage += "- NIC should be either 9 numbers followed by the letter 'V' or 'v', or 12 numbers only.\n";
+        }
+
+        var dob = document.getElementById("inputDOB").value;
+        var today = new Date().toISOString().split('T')[0]; // Get current date in yyyy-mm-dd format
+        if (dob >= today) {
+            isValid = false;
+            errorMessage += "- Date of Birth cannot be today or a future date.\n";
         }
 
         if (!isValid) {

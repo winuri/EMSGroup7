@@ -128,9 +128,7 @@
                     <img src="logo.jpg" alt="Logo" class="mr-3" style="height: 40px;">
                     <h2>Dashboard</h2>
                 </div>
-                <div class="user--info">
-                    <img src="img.png" alt="User Image"/>
-                </div>
+                
             </div>
             <?php
                 if (!empty($success)) {
