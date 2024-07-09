@@ -1,5 +1,5 @@
 <?php
-include('ConnectionModel.php');
+include('db_connection.php');
 
 if(isset($_GET['id'])) {
     $work_ID = $_GET['id'];

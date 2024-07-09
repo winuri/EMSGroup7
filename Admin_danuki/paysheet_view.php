@@ -1,5 +1,5 @@
 <?php
-include('ConnectionModel.php');
+include('db_connection.php');
 include('Header.php');
 
 // Retrieve the payroll id from the URL parameter
