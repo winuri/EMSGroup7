@@ -10,7 +10,8 @@ if (isset($_GET['employee_id'])) {
                 b.Bank_Name, 
                 w.Work_name, 
                 pm.Pay_method,
-                a.Acc_No
+                a.Acc_No,
+                a.Branch
             FROM employee e
             LEFT JOIN positions p ON e.Position_ID = p.Position_ID
             LEFT JOIN bankdetails b ON e.Bank_ID = b.Bank_ID
