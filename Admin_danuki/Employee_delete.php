@@ -1,6 +1,6 @@
 <?php
 // Database connection
-include('ConnectionModel.php');
+include('db_connection.php');
 
 // Employee ID to delete, provided as input
 $EMP_ID = isset($_GET['id']) ? $_GET['id'] : null;
