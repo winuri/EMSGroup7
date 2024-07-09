@@ -34,7 +34,7 @@
                         <i class="lni lni-grid-alt"></i>
                     </button>
                     <div class="sidebar-logo">
-                        <a href="Index.php">Admin Dashborad</a>
+                        <a href="Home.php">Admin Dashborad</a>
                     </div>
                 </div>
                 <ul class="sidebar-nav">
@@ -53,6 +53,9 @@
                             <li class="sidebar-item">
                                 <a href="Employee_view.php" class="sidebar-link">View Employees</a>
                             </li>
+                            <li class="sidebar-item">
+                                <a href="Work_Assign.php" class="sidebar-link">Assign Employees</a>
+                            </li>
                         </ul>
                     </li>
                     <li class="sidebar-item">
@@ -63,10 +66,10 @@
                         </a>
                         <ul id="auth" class="sidebar-dropdown list-unstyled collapse" data-bs-parent="#sidebar">
                             <li class="sidebar-item">
-                                <a href="#" class="sidebar-link">View Attendance</a>
+                                <a href="Attendance_View.php" class="sidebar-link">View Attendance</a>
                             </li>
                             <li class="sidebar-item">
-                                <a href="#" class="sidebar-link">View Leave</a>
+                                <a href="Employee_leaves.php" class="sidebar-link">View Leave</a>
                             </li>
                         </ul>
                     </li>
@@ -78,7 +81,7 @@
                         </a>
                         <ul id="auth" class="sidebar-dropdown list-unstyled collapse" data-bs-parent="#sidebar">
                             <li class="sidebar-item">
-                                <a href="#" class="sidebar-link">View Salary Details</a>
+                                <a href="Salary_view.php" class="sidebar-link">View Salary Details</a>
                             </li>
                         </ul>
                     </li>
@@ -90,7 +93,7 @@
                         </a>
                         <ul id="auth" class="sidebar-dropdown list-unstyled collapse" data-bs-parent="#sidebar">
                             <li class="sidebar-item">
-                                <a href="#" class="sidebar-link">View Inventory Details</a>
+                                <a href="Inventory_view.php" class="sidebar-link">View Inventory Details</a>
                             </li>
                         </ul>
                     </li>
@@ -120,21 +123,15 @@
             </aside>
 
             <div class="main--content">
-                <div class="header--wrapper">
-                    <div class="header--title">
-                    
-                        <h2>Dashboard</h2>
-                    </div>
-                    <div class="user--info">
-                        <div class="search--box">
-                        <i class="lni lni-search"></i>
-                        <input type="text" placeholder="Search"/>
-                        </div>
-                        <img src="img.png" alt=""/>
-                    </div>    
+            <div class="header--wrapper">
+                <div class="header--title d-flex align-items-center">
+                    <img src="logo.jpg" alt="Logo" class="mr-3" style="height: 40px;">
+                    <h2>Dashboard</h2>
                 </div>
-                <?php
-                    if(!empty($success)){
-                        print $success;
-                    }
-                ?>
+            </div>
+            <?php
+                if (!empty($success)) {
+                    print $success;
+                }
+            ?>
+        
