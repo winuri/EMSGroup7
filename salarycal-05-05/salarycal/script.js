@@ -1,10 +1,21 @@
-function saveData( emp_id) {
-    // Store data in sessionStorage
-    sessionStorage.setItem('EMP_ID', emp_id);
+let currentSlide = 0;
+const slides = document.querySelectorAll('.slide');
 
-    // Provide feedback to the user
-    document.getElementById('output').innerText = 'Data saved successfully!';
-    console.log("Data saved successfully!");	
-
-    console.log(sessionStorage.getItem('EMP_ID'));
+function showSlide(index) {
+    slides.forEach((slide, i) => {
+        slide.classList.remove('active');
+        if (i === index) {
+            slide.classList.add('active');
+        }
+    });
 }
+
+function nextSlide() {
+    currentSlide = (currentSlide + 1) % slides.length;
+    showSlide(currentSlide);
+}
+
+setInterval(nextSlide, 3000); // Change slide every 3 seconds
+
+// Initial display
+showSlide(currentSlide);
