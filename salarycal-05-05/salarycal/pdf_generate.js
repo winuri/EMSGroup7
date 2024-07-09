@@ -14,3 +14,4 @@ document.getElementById('download-button').addEventListener('click', function ()
         pdf.save('download.pdf');
     });
 });
+
