@@ -3,7 +3,7 @@
 $servername = "localhost";
 $username = "root";
 $password = "";
-$dbname = "emsdatabase_final";
+$dbname = "emsdatabase_new";
 $conn = new mysqli($servername, $username, $password, $dbname);
 if ($conn->connect_error) {
     die("Connection failed: " . $conn->connect_error);
@@ -41,6 +41,7 @@ $result = $sql->get_result();
             background-color: #f4f4f4;
         }
         .container {
+            margin-left: 220px;
             padding: 20px;
         }
         table {
@@ -51,7 +52,7 @@ $result = $sql->get_result();
             border: 1px solid #ddd; /* Border color */
         }
         table th, table td {
-            padding: 10px;
+            padding: 5px; /* Reduced padding */
             text-align: left;
             border-bottom: 1px solid #ddd; /* Bottom border for cells */
         }
@@ -62,7 +63,7 @@ $result = $sql->get_result();
         table tbody tr:nth-child(even) {
             background-color: #f2f2f2; /* Alternate row color */
         }
-		 #sidebar {
+        #sidebar {
             background-color: #083C71;
             width: 200px;
             position: fixed;
@@ -72,54 +73,48 @@ $result = $sql->get_result();
             color: #fff;
             transition: all 0.3s;
         }
-		.sidebar-item {
-            margin-bottom: 30px; /* Adjust margin for spacing between items */
+        .sidebar-item {
+            margin-bottom: 20px; /* Adjust margin for spacing between items */
         }
-         #sidebar a {
+        #sidebar a {
             color: #FFFFFF !important; /* Text color for links (white) */
             text-decoration: none; /* Remove underline from links */
         }
         #sidebar a:hover {
             color: #FFFFFF; /* Text color on hover (white) */
         }
-		
     </style>
 </head>
 <body>
 
 <div id="sidebar">
-        
-        <ul class="list-unstyled">
+    <ul class="list-unstyled">
+        <li class="sidebar-item">
+            <a href="#toolSubmenu" data-toggle="collapse" aria-expanded="false">
+                <i class="lni lni-cog"></i> <li class="sidebar-item">
+                    <a href="index.php">Items management</a>
+            </a>
             <li class="sidebar-item">
-                <a href="#toolSubmenu" data-toggle="collapse" aria-expanded="false">
-                    <i class="lni lni-cog"></i> <li class="sidebar-item">
-                        <a href="index.php">Items managment</a>
-                </a>
-                
-                    <li class="sidebar-item">
-                        <a href="add.php">Add Items</a>
-						
+                <a href="add.php">Add Items</a>
+            </li>
             <li class="sidebar-item">
                 <a href="add_new.php">Add New Items</a>
             </li>
-       
-                    </li>
-                    <li class="sidebar-item">
-                        <a href="update.php">Update Items</a>
-                    </li>
-                    <li class="sidebar-item">
-                        <a href="delete.php">Delete Items</a>
-                    </li>
-                    <li class="sidebar-item">
-                        <a href="upnew.php">View Items</a>
-                    </li>
-                    <li class="sidebar-item">
-                        <a href="report.php">Reports</a>
-                    </li>
-                </ul>
+            <li class="sidebar-item">
+                <a href="update.php">Update Items</a>
             </li>
-        </ul>
-    </div>
+            <li class="sidebar-item">
+                <a href="delete.php">Delete Items</a>
+            </li>
+            <li class="sidebar-item">
+                <a href="upnew.php">View Items</a>
+            </li>
+            <li class="sidebar-item">
+                <a href="report.php">Reports</a>
+            </li>
+        </li>
+    </ul>
+</div>
 
 <div class="container">
     <h1 class="my-4">Items in Category: <?php echo htmlspecialchars($categoryName); ?></h1>
@@ -151,6 +146,8 @@ $result = $sql->get_result();
     </div>
 </div>
 
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
 </body>
 </html>
 

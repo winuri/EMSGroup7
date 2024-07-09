@@ -25,9 +25,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     // Execute the statement
     if ($stmt->execute()) {
-        header("Location: leave.html?status=success");
+        header("Location: leave2.html?status=success");
     } else {
-        header("Location: leave.html?status=error");
+        header("Location: leave2.html?status=error");
     }
 
     // Close the statement and connection

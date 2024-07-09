@@ -121,7 +121,7 @@
             <ul class="list-unstyled">
                 <li class="sidebar-item">
                     <a href="#toolSubmenu" data-toggle="collapse" aria-expanded="false">
-                        <i class="lni lni-cog"></i> <a href="supervisor.php">Items Management</a>
+                        <i class="lni lni-cog"></i> <a href="new_item.php">Items Management</a>
                         <ul class="collapse list-unstyled" id="toolSubmenu">
                             <li class="sidebar-item">
                                 <a href="add.php">Add Items</a>

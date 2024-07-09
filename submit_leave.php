@@ -1,6 +1,6 @@
 <?php
 // Include the database connection file
-require 'config.php';
+require 'db_connection.php';
 
 // Check if the form is submitted
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
@@ -25,7 +25,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     // Execute the statement
     if ($stmt->execute()) {
-        echo "success";
         header("Location: leave.html?status=success");
     } else {
         header("Location: leave.html?status=error");

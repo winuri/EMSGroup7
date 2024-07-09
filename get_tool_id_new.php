@@ -2,7 +2,7 @@
 // Database connection setup
 $servername = "localhost";
 $username = "root";
-$password = "";
+$password = "root";
 $dbname = "emsdatabase_new";
 $conn = new mysqli($servername, $username,$password, $dbname);
 if ($conn->connect_error) {

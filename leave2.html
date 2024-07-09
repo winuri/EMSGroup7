@@ -30,7 +30,7 @@
 
       function fetchEmployeeDetails(empId) {
         const xhr = new XMLHttpRequest();
-        xhr.open("GET", "get_employee_details.php?emp_id=" + empId, true);
+        xhr.open("GET", "get_employee_details2.php?emp_id=" + empId, true);
         xhr.onload = function () {
           if (xhr.status === 200) {
             const response = JSON.parse(xhr.responseText);
@@ -141,7 +141,7 @@
         </div>
         <h1>Leave Page</h1>
         <div>
-          <form action="submit_leave.php" method="post" class="form">
+          <form action="submit_leave2.php" method="post" class="form">
             <input type="hidden" id="emp_id" name="emp_id" />
             <input type="hidden" id="position_id" name="position_id" />
         

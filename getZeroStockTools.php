@@ -5,7 +5,7 @@ header('Content-Type: application/json');
 
 $servername = "localhost";
 $username = "root";
-$password = "";
+$password = "root";
 $dbname = "emsdatabase_new";
 
 // Create connection

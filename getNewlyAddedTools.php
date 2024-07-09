@@ -2,7 +2,7 @@
 // Database connection (similar to your main script)
 $servername = "localhost";
 $username = "root";
-$password = "";
+$password = "root";
 $dbname = "emsdatabase_new";
 
 // Create connection

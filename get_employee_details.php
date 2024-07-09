@@ -1,6 +1,6 @@
 <?php
 // Include the database connection file
-require 'config.php';
+require 'db_connection.php';
 
 if (isset($_GET['emp_id'])) {
     $emp_id = $_GET['emp_id'];
@@ -34,7 +34,7 @@ if (isset($_GET['emp_id'])) {
     } else {
         echo json_encode(array('error' => 'Employee not found'));
     }
-    
+
     // Close statements and connection
     $stmt1->close();
     $stmt2->close();

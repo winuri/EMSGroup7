@@ -92,7 +92,7 @@
                 if (category === 1) {
                     window.location.href = 'profile.php';
                 } else if (category === 2) {
-                    window.location.href = 'leave.php';
+                    window.location.href = 'leave2.html';
                 } else if (category === 4) {
                     window.location.href = 'new_item.php';
                 } else if (category === 5) {
