@@ -7,14 +7,24 @@
     <style>
       body {
         font-family: Arial, sans-serif;
-            background-color: #f4f4f9;
-            margin: 0;
-            padding: 0;
-            display: flex;
-            justify-content: center; /* Center horizontally */
-            align-items: center; /* Center vertically */
-            height: 100vh;
-        
+        background-color: #f4f4f9;
+        margin: 0;
+        padding: 0;
+        display: flex;
+        justify-content: center; /* Center horizontally */
+        align-items: center; /* Center vertically */
+        height: 100vh;
+      }
+      .topbar{
+        background-color: #ffffff;
+        padding: 5px;
+        border-radius: 10px;
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+      }
+      .topbar img {
+        width: 40px;
+        height: 30px;
+        margin-left: 20px;
       }
       #profileForm {
         background-color: #ffffff;
@@ -27,7 +37,7 @@
       }
       #profileForm h1 {
         font-size: 24px;
-        margin-bottom: 20px;
+        margin-bottom: 10px;
         text-align: center;
       }
       #profileForm table {
@@ -43,6 +53,7 @@
         font-weight: bold;
       }
       #profileForm input[type="text"],
+      #profileForm select,
       #profileForm input[type="date"],
       #profileForm input[type="tel"] {
         width: 100%;
@@ -69,49 +80,49 @@
       }
 
       #passwordForm {
-            background-color: #ffffff;
-            padding: 20px;
-            border-radius: 10px;
-            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-            width: 600px;
-            padding-top: 5px;
-            margin-top: 20px;
-        }
-        #passwordForm h1 {
-            font-size: 24px;
-            margin-bottom: 20px;
-            text-align: center;
-        }
-        #passwordForm table {
-            width: 100%;
-        }
-        #passwordForm table td {
-            padding: 8px;
-            vertical-align: top;
-        }
-        #passwordForm label {
-            display: block;
-            margin-bottom: 5px;
-            font-weight: bold;
-        }
-        #passwordForm input[type="password"] {
-            width: calc(100% - 20px); /* Adjusted width to account for padding */
-            padding: 8px;
-            border: 1px solid #ccc;
-            border-radius: 5px;
-        }
-        #passwordForm input[type="submit"] {
-            background-color: #007BFF;
-            color: white;
-            padding: 10px;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-            width: 200px; /* Button width set to 100% to fill the table cell */
-        }
-        #passwordForm input[type="submit"]:hover {
-            background-color: #0056b3;
-        }
+        background-color: #ffffff;
+        padding: 20px;
+        border-radius: 10px;
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        width: 600px;
+        padding-top: 5px;
+        margin-top: 20px;
+      }
+      #passwordForm h1 {
+        font-size: 24px;
+        margin-bottom: 10px;
+        text-align: center;
+      }
+      #passwordForm table {
+        width: 100%;
+      }
+      #passwordForm table td {
+        padding: 8px;
+        vertical-align: top;
+      }
+      #passwordForm label {
+        display: block;
+        margin-bottom: 5px;
+        font-weight: bold;
+      }
+      #passwordForm input[type="password"] {
+        width: calc(100% - 20px); /* Adjusted width to account for padding */
+        padding: 8px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+      }
+      #passwordForm input[type="submit"] {
+        background-color: #007bff;
+        color: white;
+        padding: 10px;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        width: 200px; /* Button width set to 100% to fill the table cell */
+      }
+      #passwordForm input[type="submit"]:hover {
+        background-color: #0056b3;
+      }
     </style>
   </head>
   <body>
@@ -128,6 +139,9 @@
         ></iframe>
       </div>
       <div class="content">
+        <div class="topbar">
+          <img src="logo.jpg">
+        </div>
         <form id="profileForm">
           <h1>Profile Information</h1>
           <table>
@@ -179,13 +193,12 @@
             <tr>
               <td>
                 <label for="Gender">Gender:</label>
-                <input
-                  type="text"
-                  id="Gender"
-                  name="Gender"
-                  placeholder="Enter your gender"
-                  required
-                />
+                <select id="Gender" name="Gender" required>
+                  <option value="">Select your gender</option>
+                  <option value="Male">Male</option>
+                  <option value="Female">Female</option>
+                  <option value="Other">Other</option>
+              </select>
               </td>
               <td>
                 <label for="DOB">Date of Birth:</label>
@@ -211,30 +224,35 @@
         </form>
 
         <form id="passwordForm">
-        <h1>Update Password</h1>
-        <table>
+          <h1>Update Password</h1>
+          <table>
             <tr>
-                <td>
-                    <label for="password">Password:</label>
-                    <input type="password" id="password" name="password" />
-                </td>
-                <td>
-                    <label for="confirmPassword">Confirm Password:</label>
-                    <input type="password" id="confirmPassword" name="confirmPassword" />
-                </td>
+              <td>
+                <label for="password">Password:</label>
+                <input type="password" id="password" name="password" required />
+              </td>
+              <td>
+                <label for="confirmPassword">Confirm Password:</label>
+                <input
+                  type="password"
+                  id="confirmPassword"
+                  name="confirmPassword"
+                  required
+                />
+              </td>
             </tr>
-        </table>
-        <div class="submit-container">
-          <input type="submit" value="Update Password" />
-        </div>
-    </form>
+          </table>
+          <div class="submit-container">
+            <input type="submit" value="Update Password" />
+          </div>
+        </form>
       </div>
     </div>
 
     <script>
       document.addEventListener("DOMContentLoaded", function () {
         var empId = sessionStorage.getItem("EMP_ID");
-
+  
         if (empId) {
           fetch(`get_employee.php?EMP_ID=${empId}`)
             .then((response) => response.json())
@@ -254,79 +272,124 @@
           console.error("No EMP_ID found in sessionStorage.");
         }
       });
+  
+      function validateProfileForm() {const nic = document.getElementById('NIC').value;
+            const mobile = document.getElementById('Mobile').value;
+            const dob = document.getElementById('DOB').value;
 
-      document
-        .getElementById("profileForm")
-        .addEventListener("submit", function (e) {
-          e.preventDefault();
+            // Custom NIC validation (assuming NIC should be alphanumeric and between 5-12 characters)
+            const nicPattern = /^[a-zA-Z0-9]{5,12}$/;
+            if (!nicPattern.test(nic)) {
+                alert('NIC must be alphanumeric and between 5-12 characters.');
+                event.preventDefault();
+                return;
+            }
 
-          var empId = sessionStorage.getItem("EMP_ID");
+            // Custom Mobile validation (assuming 10-digit number)
+            if (!/^\d{10}$/.test(mobile)) {
+                alert('Mobile number must be exactly 10 digits.');
+                event.preventDefault();
+                return;
+            }
 
-          var profileData = {
+            // Custom Date of Birth validation (assuming age should be at least 18 years)
+            const dobDate = new Date(dob);
+            const age = new Date().getFullYear() - dobDate.getFullYear();
+            const monthDiff = new Date().getMonth() - dobDate.getMonth();
+            if (monthDiff < 0 || (monthDiff === 0 && new Date().getDate() < dobDate.getDate())) {
+                age--;
+            }
+
+            if (age < 18) {
+                alert('You must be at least 18 years old.');
+                event.preventDefault();
+                return;
+            }
+  
+        return true;
+      }
+  
+      document.getElementById("profileForm").addEventListener("submit", function (e) {
+        e.preventDefault();
+  
+        if (!validateProfileForm()) {
+          return;
+        }
+  
+        var empId = sessionStorage.getItem("EMP_ID");
+  
+        var profileData = {
+          EMP_ID: empId,
+          F_name: document.getElementById("F_name").value,
+          L_name: document.getElementById("L_name").value,
+          NIC: document.getElementById("NIC").value,
+          Mobile: document.getElementById("Mobile").value,
+          Gender: document.getElementById("Gender").value,
+          Address: document.getElementById("Address").value,
+          DOB: document.getElementById("DOB").value,
+        };
+  
+        fetch("update_profile.php", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(profileData),
+        })
+          .then((response) => response.json())
+          .then((data) => {
+            if (data.success) {
+              alert("Profile updated successfully");
+            } else {
+              alert("Error updating profile");
+            }
+          })
+          .catch((error) => console.error("Error:", error));
+      });
+  
+      function validatePasswordForm() {
+        const password = document.getElementById("password").value;
+        const confirmPassword = document.getElementById("confirmPassword").value;
+  
+        if (password !== confirmPassword) {
+          alert("Passwords do not match");
+          return false;
+        }
+  
+        return true;
+      }
+  
+      document.getElementById("passwordForm").addEventListener("submit", function (e) {
+        e.preventDefault();
+  
+        if (!validatePasswordForm()) {
+          return;
+        }
+  
+        var password = document.getElementById("password").value;
+        var empId = sessionStorage.getItem("EMP_ID");
+  
+        fetch("update_password.php", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
             EMP_ID: empId,
-            F_name: document.getElementById("F_name").value,
-            L_name: document.getElementById("L_name").value,
-            NIC: document.getElementById("NIC").value,
-            Mobile: document.getElementById("Mobile").value,
-            Gender: document.getElementById("Gender").value,
-            Address: document.getElementById("Address").value,
-            DOB: document.getElementById("DOB").value,
-          };
-
-          fetch("update_profile.php", {
-            method: "POST",
-            headers: {
-              "Content-Type": "application/json",
-            },
-            body: JSON.stringify(profileData),
+            password: password,
+          }),
+        })
+          .then((response) => response.json())
+          .then((data) => {
+            if (data.success) {
+              alert("Password updated successfully");
+            } else {
+              console.log(data);
+              alert("Error updating password");
+            }
           })
-            .then((response) => response.json())
-            .then((data) => {
-              if (data.success) {
-                alert("Profile updated successfully");
-              } else {
-                alert("Error updating profile");
-              }
-            })
-            .catch((error) => console.error("Error:", error));
-        });
-
-      document
-        .getElementById("passwordForm")
-        .addEventListener("submit", function (e) {
-          e.preventDefault();
-
-          var password = document.getElementById("password").value;
-          var confirmPassword =
-            document.getElementById("confirmPassword").value;
-          var empId = sessionStorage.getItem("EMP_ID");
-
-          if (password !== confirmPassword) {
-            alert("Passwords do not match");
-            return;
-          }
-
-          fetch("update_password.php", {
-            method: "POST",
-            headers: {
-              "Content-Type": "application/json",
-            },
-            body: JSON.stringify({
-              EMP_ID: empId,
-              password: password,
-            }),
-          })
-            .then((response) => response.json())
-            .then((data) => {
-              if (data.success) {
-                alert("Password updated successfully");
-              } else {
-                console.log(data);
-                alert("Error updating password");
-              }
-            })
-            .catch((error) => console.error("Error:", error));
-        });
-    </script>
+          .catch((error) => console.error("Error:", error));
+      });
+    </script> 
   </body>
 </html>
