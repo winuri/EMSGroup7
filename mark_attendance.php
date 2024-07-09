@@ -243,7 +243,7 @@ $conn->close();
                 <tbody>
                     <?php
                     // Fetch employees and their work details from the employee and workplace tables
-                    $conn = new mysqli('localhost', 'root', '', 'emsdatabase_final');
+                    $conn = new mysqli('localhost', 'root', 'root', 'emsdatabase_new');
                     if ($conn->connect_error) {
                         die("Connection failed: " . $conn->connect_error);
                     }

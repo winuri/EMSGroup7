@@ -45,8 +45,36 @@
 		 .sidebar-item {
             margin-bottom: 30px; /* Adjust margin for spacing between items */
         }
+        .logout-button {
+    display: block;
+    border-radius: 5px;
+    width: 100px;
+    padding: 10px;
+    text-align: center;
+    background-color: #f44336; /* Red background */
+    color: white; /* White text */
+    border: none;
+    cursor: pointer;
+    margin-top: 10px;
+    text-decoration: none;
+}
+
+.logout-button a {
+    color: white; /* Ensure the text is white */
+    text-decoration: none; /* Remove underline */
+}
+
+.logout-button:hover {
+    background-color: #d32f2f; /* Darker red on hover */
+}
         
     </style>
+    <script>
+        function logout() {
+            sessionStorage.setItem('EMP_ID', "");
+            window.top.location.href = 'login.html';
+        }
+    </script>
 </head>
 <body>
     <!-- First Navbar -->
@@ -101,6 +129,7 @@
                 </a>
             </li>
         </ul>
+        <button class="logout-button"><a href="javascript:void(0);" onclick="logout()">Logout</a></button>
     </div>
 </div>
 
