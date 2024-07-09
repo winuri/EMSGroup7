@@ -5,30 +5,36 @@ include 'db_connection.php';
 $id = $title = $from_date = $to_date = "";
 $action = "insert";
 $message = "";
+$page = isset($_GET['page']) ? (int)$_GET['page'] : 1;
+$limit = 10;
+$offset = ($page - 1) * $limit;
 
 // Handle form submission
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    $id = $_POST["id"];
     $title = $_POST["title"];
     $from_date = $_POST["from_date"];
     $to_date = $_POST["to_date"];
     $current_time = date('Y-m-d H:i:s');
 
     if ($_POST["action"] == "insert") {
-        $sql = "INSERT INTO payrollsheet (id, title, from_date, to_date, create_at, update_at) 
-                VALUES ('$id', '$title', '$from_date', '$to_date', '$current_time', '$current_time')";
+        $sql = "INSERT INTO payrollsheet (title, from_date, to_date, create_at, update_at) 
+                VALUES ('$title', '$from_date', '$to_date', '$current_time', '$current_time')";
         if ($conn->query($sql) === TRUE) {
             $message = "New record created successfully";
+            echo "<script>alert('$message');</script>";
         } else {
             $message = "Error: " . $sql . "<br>" . $conn->error;
+            echo "<script>alert('$message');</script>";
         }
     } else if ($_POST["action"] == "update") {
         $sql = "UPDATE payrollsheet SET title='$title', from_date='$from_date', to_date='$to_date', update_at='$current_time' 
                 WHERE id='$id'";
         if ($conn->query($sql) === TRUE) {
             $message = "Record updated successfully";
+            echo "<script>alert('$message');</script>";
         } else {
             $message = "Error: " . $sql . "<br>" . $conn->error;
+            echo "<script>alert('$message');</script>";
         }
     }
 }
@@ -39,8 +45,10 @@ if (isset($_GET["delete_id"])) {
     $sql = "DELETE FROM payrollsheet WHERE id='$delete_id'";
     if ($conn->query($sql) === TRUE) {
         $message = "Record deleted successfully";
+        echo "<script>alert('$message');</script>";
     } else {
         $message = "Error: " . $sql . "<br>" . $conn->error;
+        echo "<script>alert('$message');</script>";
     }
 }
 
@@ -64,6 +72,25 @@ $month_filter = "";
 if (isset($_GET["month"])) {
     $month_filter = $_GET["month"];
 }
+
+$today = date('Y-m-d');
+
+// Query for pagination
+$sql = "SELECT * FROM payrollsheet";
+if ($month_filter) {
+    $sql .= " WHERE from_date LIKE '$month_filter%'";
+}
+$sql .= " LIMIT $limit OFFSET $offset";
+$result = $conn->query($sql);
+
+// Count the total number of records
+$count_sql = "SELECT COUNT(*) as total FROM payrollsheet";
+if ($month_filter) {
+    $count_sql .= " WHERE from_date LIKE '$month_filter%'";
+}
+$count_result = $conn->query($count_sql);
+$total_records = $count_result->fetch_assoc()['total'];
+$total_pages = ceil($total_records / $limit);
 ?>
 
 <!DOCTYPE html>
@@ -77,6 +104,17 @@ if (isset($_GET["month"])) {
             background-color: #f4f4f9;
             margin: 0;
             padding: 0;
+        }
+        .topbar{
+        background-color: #ffffff;
+        padding: 5px;
+        border-radius: 10px;
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+        .topbar img {
+            width: 40px;
+            height: 30px;
+            margin-left: 20px;
         }
         form {
             background-color: #ffffff;
@@ -99,6 +137,7 @@ if (isset($_GET["month"])) {
             vertical-align: top;
         }
         input[type="text"],
+        input[type="number"],
         form input[type="month"],
         input[type="date"] {
             width: calc(100% - 10px);
@@ -199,18 +238,26 @@ if (isset($_GET["month"])) {
         .filter-container button:last-child {
             margin-right: 0;
         }
-        
+        .pagination {
+            display: flex;
+            justify-content: center;
+            margin-top: 20px;
+        }
+        .pagination a {
+            margin: 0 5px;
+            padding: 8px 16px;
+            text-decoration: none;
+            background-color: #007BFF;
+            color: white;
+            border-radius: 5px;
+        }
+        .pagination a:hover {
+            background-color: #0056b3;
+        }
+        .pagination a.active {
+            background-color: #0056b3;
+        }
     </style>
-    <script>
-        function filterByMonth() {
-            const month = document.querySelector('input[name="month"]').value;
-            window.location.href = 'paysheet.php?month=' + month;
-        }
-
-        function filterByAll() {
-            window.location.href = 'paysheet.php';
-        }
-    </script>
 </head>
 <body>
     <div class="container">
@@ -219,34 +266,35 @@ if (isset($_GET["month"])) {
             <iframe id="sidebar-iframe" src="sidebar.html" width="100%" height="100%" style="border: none;" title="Sidebar"></iframe>
         </div>
         <div class="content">
+            <div class="topbar">
+                <img src="logo.jpg">
+            </div>
             <form method="post" action="paysheet.php" id="create-paysheet">
                 <h1>Pay Sheet</h1>
                 <input type="hidden" name="action" value="<?php echo $action; ?>">
                 <table>
                     <tr>
-                    <td>ID: <input type="text" name="id" value="<?php echo $id; ?>"></td>
-                    <td>Title: <input type="text" name="title" value="<?php echo $title; ?>"></td>
+                        <td>Title: <input type="text" name="title" value="<?php echo $title; ?>" required></td>
                     </tr>
                     <tr>
-                    <td>From Date: <input type="date" name="from_date" value="<?php echo $from_date; ?>"></td>
-                    <td>To Date: <input type="date" name="to_date" value="<?php echo $to_date; ?>"></td>
+                        <td>From Date: <input type="date" name="from_date" value="<?php echo $from_date; ?>" max="<?php echo $today;?>" required></td>
+                        <td>To Date: <input type="date" name="to_date" value="<?php echo $to_date; ?>" max="<?php echo $today; ?>" required></td>
                     </tr>
                 </table>
                 <div class="submit-container">
-                <button type="submit"><?php echo ($action == "insert") ? "Insert" : "Update"; ?></button>
+                    <button type="submit"><?php echo ($action == "insert") ? "Insert" : "Update"; ?></button>
                 </div>
             </form>
 
             <p><?php echo $message; ?></p>
-            
-            
+
             <h2>Payroll Sheets</h2> 
             <div class="filter-container">
                 <table>
                     <tr>
-                    <td><input type="month" name="month"></td>
-                    <td><button type="button" onclick="filterByMonth()">Filter</button></td>
-                    <td><button type="button" onclick="filterByAll()">All</button></td>
+                        <td><input type="month" name="month"></td>
+                        <td><button type="button" onclick="filterByMonth()">Filter</button></td>
+                        <td><button type="button" onclick="filterByAll()">All</button></td>
                     </tr>
                 </table>
             </div>
@@ -254,7 +302,7 @@ if (isset($_GET["month"])) {
             <div>
                 <table id="paysheet-table">
                     <tr>
-                        <th>ID</th>
+                        <!-- <th>ID</th> -->
                         <th>Title</th>
                         <th>From Date</th>
                         <th>To Date</th>
@@ -263,16 +311,9 @@ if (isset($_GET["month"])) {
                         <th>Action</th>
                     </tr>
                     <?php
-                    $sql = "SELECT * FROM payrollsheet";
-                    if ($month_filter) {
-                        $sql .= " WHERE from_date LIKE '$month_filter%'";
-                    }
-                    $result = $conn->query($sql);
-
                     if ($result->num_rows > 0) {
                         while($row = $result->fetch_assoc()) {
                             echo "<tr>
-                                    <td>{$row['id']}</td>
                                     <td>{$row['title']}</td>
                                     <td>{$row['from_date']}</td>
                                     <td>{$row['to_date']}</td>
@@ -288,9 +329,16 @@ if (isset($_GET["month"])) {
                     } else {
                         echo "<tr><td colspan='7'>No records found</td></tr>";
                     }
-                    $conn->close();
                     ?>
                 </table>
+                <!-- <td>{$row['id']}</td> -->
+            </div>
+            <div class="pagination">
+                <?php
+                for ($i = 1; $i <= $total_pages; $i++) {
+                    echo "<a href='?page=$i&month=$month_filter' class='".($i == $page ? "active" : "")."'>$i</a>";
+                }
+                ?>
             </div>
         </div>
     </div>
