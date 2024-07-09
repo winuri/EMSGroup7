@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Modern Sidebar</title>
+    <link rel="stylesheet" href="style.css">
+    <script>
+        function loadPage(url) {
+            document.getElementById('iframe').src = url;
+        }
+    </script>
+</head>
+<body>
+    <div class="container">
+        <div>
+            <!-- Sidebar iframe -->
+            <iframe id="sidebar-iframe" src="sidebar.html" width="100%" height="100%" style="border: none;" title="Sidebar"></iframe>
+        </div>
+        <div class="content">
+            <span>ABC</span>
+            <button type="button" onclick="saveData('9')">Save Data</button>
+        </div>
+    </div>
+    <div id="output"></div>
+
+    <script src="script.js"></script>
+</body>
+</html>
