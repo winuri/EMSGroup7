@@ -25,7 +25,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     // Execute the statement
     if ($stmt->execute()) {
-        echo "success";
         header("Location: leave.html?status=success");
     } else {
         header("Location: leave.html?status=error");
